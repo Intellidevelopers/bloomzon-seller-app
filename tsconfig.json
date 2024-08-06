@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/ProductList.jsx", "app/Returns.js", "app/ReturnDetails.js", "app/RefundInformation.tsx", "app/NewPassword.js"  ]
 }

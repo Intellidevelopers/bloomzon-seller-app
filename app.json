@@ -12,6 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,6 +34,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "451592c6-c95e-4ee3-966f-89faa4d457ee"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/451592c6-c95e-4ee3-966f-89faa4d457ee"
     }
   }
 }

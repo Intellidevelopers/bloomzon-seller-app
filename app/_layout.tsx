@@ -1,11 +1,10 @@
+import React, { useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 import { useColorScheme } from '@/components/useColorScheme';
 
 export {
@@ -15,7 +14,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'Welcome', // Make sure this matches the route name in Stack.Screen
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -24,6 +23,15 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Bold: require('../assets/fonts/Poppins-Bold.ttf'),
+    Regular: require('../assets/fonts/Poppins-Regular.ttf'),
+    Medium: require('../assets/fonts/Poppins-Medium.ttf'),
+    Thin: require('../assets/fonts/Poppins-Thin.ttf'),
+    Semibold: require('../assets/fonts/Poppins-SemiBold.ttf'),
+    Extrabold: require('../assets/fonts/Poppins-ExtraBold.ttf'),
+    Extralight: require('../assets/fonts/Poppins-ExtraLight.ttf'),
+    Light: require('../assets/fonts/Poppins-Light.ttf'),
+    Black: require('../assets/fonts/Poppins-Black.ttf'),
     ...FontAwesome.font,
   });
 
@@ -35,6 +43,8 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      router.replace('/Welcome'); // Navigate to the main content after the splash screen
+
     }
   }, [loaded]);
 
@@ -49,10 +59,38 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+    <ThemeProvider value={DefaultTheme}>
+      <Stack initialRouteName="Welcome">
+      <Stack.Screen name="Welcome" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="Home" options={{ headerShown: false }} />
+        <Stack.Screen name="StoreCountries" options={{ headerShown: false }} />
+        <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="Register" options={{ headerShown: false }} />
+        <Stack.Screen name="ForgotPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="OTP" options={{ headerShown: false }} />
+        <Stack.Screen name="NewPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="Success" options={{ headerShown: false }} />
+        <Stack.Screen name="AddProduct" options={{ headerShown: false }} />
+        <Stack.Screen name="VariationsScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="Variations" options={{ headerShown: false }} />
+        <Stack.Screen name="Offers" options={{ headerShown: false }} />
+        <Stack.Screen name="Gallery" options={{ headerShown: false }} />
+        <Stack.Screen name="Reorder" options={{ headerShown: false }} />
+        <Stack.Screen name="ProductDescription" options={{ headerShown: false }} />
+        <Stack.Screen name="Keywords" options={{ headerShown: false }} />
+        <Stack.Screen name="UploadSuccess" options={{ headerShown: false }} />
+        <Stack.Screen name="ManageOrders" options={{ headerShown: false }} />
+        <Stack.Screen name="Inventory" options={{ headerShown: false }} />
+        <Stack.Screen name="Filter" options={{ headerShown: false }} />
+        <Stack.Screen name="Returns" options={{ headerShown: false }} />
+        <Stack.Screen name="ReturnDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="RefundInformation" options={{ headerShown: false }} />
+        <Stack.Screen name="RefundSummary" options={{ headerShown: false }} />
+        <Stack.Screen name="refundSuccess" options={{ headerShown: false }} />
+        <Stack.Screen name="ContactBuyer" options={{ headerShown: false }} />
+        <Stack.Screen name="Advertisement" options={{ headerShown: false }} />
+        <Stack.Screen name="AccountHealth" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
