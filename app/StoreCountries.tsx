@@ -55,8 +55,10 @@ const StoreCountries: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
       <Text style={styles.headerText}>Store country</Text>
       <Text style={styles.subtitle}>Select the store you want to register and sell on</Text>
+      </View>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -114,7 +116,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   headerText: {
-    marginTop: 100,
     fontFamily: 'Bold',
     fontSize: 24,
     paddingVertical: 10,
@@ -150,6 +151,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 10,
   },
+  header:{
+    marginTop: 40
+  }
 });
 
 export default StoreCountries;

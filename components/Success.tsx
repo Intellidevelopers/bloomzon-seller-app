@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const refundSuccess: React.FC = () => {
+const Success: React.FC = () => {
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -32,13 +32,13 @@ const refundSuccess: React.FC = () => {
         </TouchableOpacity>
       </View>
         <Image source={require('../assets/images/success-icon.png')} style={styles.gif} />
-       <Text style={styles.title}>Refund Successful</Text>
+       <Text style={styles.title}>Request Successful</Text>
         <Text style={styles.subtitle}>
-           Your refund has been successful processed. The buyer will receive their funds shortly.
+           Your request has been successfully processed. And it's under review.
         </Text>
         
-      <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/Returns')}>
-        <Text style={styles.loginButtonText}>Back to Manage Returns</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/(tabs)/wallet')}>
+        <Text style={styles.loginButtonText}>Back to Wallet</Text>
       </TouchableOpacity>
     </View>
   );
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default refundSuccess;
+export default Success;

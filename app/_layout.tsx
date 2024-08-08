@@ -44,7 +44,6 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
       router.replace('/Welcome'); // Navigate to the main content after the splash screen
-
     }
   }, [loaded]);
 
@@ -69,7 +68,7 @@ function RootLayoutNav() {
         <Stack.Screen name="Register" options={{ headerShown: false }} />
         <Stack.Screen name="ForgotPassword" options={{ headerShown: false }} />
         <Stack.Screen name="OTP" options={{ headerShown: false }} />
-        <Stack.Screen name="NewPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="ResetPassword" options={{ headerShown: false }} />
         <Stack.Screen name="Success" options={{ headerShown: false }} />
         <Stack.Screen name="AddProduct" options={{ headerShown: false }} />
         <Stack.Screen name="VariationsScreen" options={{ headerShown: false }} />
@@ -91,6 +90,13 @@ function RootLayoutNav() {
         <Stack.Screen name="ContactBuyer" options={{ headerShown: false }} />
         <Stack.Screen name="Advertisement" options={{ headerShown: false }} />
         <Stack.Screen name="AccountHealth" options={{ headerShown: false }} />
+        <Stack.Screen name="Communications" options={{ headerShown: false }} />
+        <Stack.Screen name="AllMessages" options={{ headerShown: false }} />
+        <Stack.Screen name="Update" options={{ headerShown: false }} />
+        <Stack.Screen name="ChatScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="Request" options={{ headerShown: false }} />
+        <Stack.Screen name="Summary" options={{ headerShown: false }} />
+        <Stack.Screen name="SuccessComponent" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

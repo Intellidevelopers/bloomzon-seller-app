@@ -68,7 +68,7 @@ const Products: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -40, gap: 70 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, gap: 120 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
@@ -76,9 +76,14 @@ const Products: React.FC = () => {
       </View>
 
       <View style={styles.searchContainer}>
-      <View style={styles.searchInputContainer}>
+        <View style={styles.searchInputContainer}>
           <Feather name='search' size={22} color='#777' style={styles.searchIcon} />
-          <TextInput style={styles.searchInput} placeholder="Search..." />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
         </View>
         <TouchableOpacity style={styles.filterIcon}>
           <FontAwesome5 name="filter" size={20} color="white" />
@@ -88,7 +93,7 @@ const Products: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.viewBloomzonButton}>
           <TouchableOpacity>
-            <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 90 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 160 }}>
               <AntDesign name="reload1" size={20} color="#00D1A3" style={{ marginRight: 10 }} />
               <Text style={styles.viewBloomzonText}>Switch to Bloomzon Ship</Text>
             </View>
@@ -116,6 +121,7 @@ const Products: React.FC = () => {
           renderItem={renderOrderItem}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
+          style={styles.products}
         />
 
         {menuVisible && (
@@ -146,7 +152,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 15,
     paddingTop: StatusBar.currentHeight,
     width: SCREEN_WIDTH,
   },
@@ -172,7 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
+    height: 55,
     borderColor: '#eee',
     borderWidth: 2,
     borderRadius: 8,
@@ -184,7 +189,7 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     backgroundColor: '#F37300',
-    padding: 13,
+    padding: 15,
     borderRadius: 5,
     marginLeft: 10,
   },
@@ -229,6 +234,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 20,
+    padding: 10
   },
   tabItem: {
     paddingVertical: 10,
@@ -295,6 +301,7 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
+    left: 15
   },
   overlay: {
     position: 'absolute',
@@ -327,6 +334,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
   },
+  products:{
+    padding: 15
+  }
 });
 
 export default Products;

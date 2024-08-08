@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 60,
+    paddingTop: 30,
     paddingBottom: 10,
-    gap: 10,
+    gap: 25,
     marginBottom: 20
   },
   backButton: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 16,
     backgroundColor: '#fff',
-    height: '60%',
+    height: '65%',
 
   },
   returnHeader: {

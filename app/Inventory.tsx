@@ -63,8 +63,8 @@ const Inventory: React.FC = () => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 30, marginTop: -20, position: "static" }}>
+    <View style={styles.container}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 60, marginTop: -20, position: "static" }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
@@ -85,7 +85,7 @@ const Inventory: React.FC = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewBloomzonButton}>
         <TouchableOpacity>
-          <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 130 }}>
+          <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 195 }}>
              <AntDesign name="reload1" size={20} color="#00D1A3" style={{marginRight: 10}} />
             <Text style={styles.viewBloomzonText}>Switch to Bloomzon Ship</Text>
           </View>
@@ -139,7 +139,7 @@ const Inventory: React.FC = () => {
         </View>
       )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 15,
     width: SCREEN_WIDTH
   },
   header: {
@@ -163,7 +162,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    width: '95%',
+    alignSelf: "center"
   },
   searchIcon: {
     marginRight: 10,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     backgroundColor: '#F37300',
-    padding: 13,
+    padding: 16,
     borderRadius: 5,
     marginLeft: 10,
   },
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
   },
   viewBloomzonText: {
     color: '#00D1A3',
-    fontSize: 16
+    fontSize: 16,
   },
   statusContainer: {
     flexDirection: 'row',
@@ -228,7 +229,8 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 20
+    gap: 20,
+    padding: 10
   },
   tabItem: {
     paddingVertical: 10,
@@ -249,7 +251,7 @@ const styles = StyleSheet.create({
   },
   orderItem: {
     flexDirection: 'row',
-    padding: 15,
+    padding: 25,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
@@ -297,6 +299,7 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
+    left: 10
   },
   overlay: {
     position: 'absolute',

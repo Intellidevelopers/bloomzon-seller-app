@@ -36,7 +36,7 @@ const LoginScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22} />
       </TouchableOpacity>
@@ -96,7 +96,7 @@ const LoginScreen: React.FC = () => {
       <TouchableOpacity style={styles.registerButton} onPress={() => router.push('Register')}>
         <Text style={styles.registerButtonText}>Register</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    width: SCREEN_WIDTH
+
   },
   backButton: {
     marginBottom: 10,

@@ -22,12 +22,12 @@ const Variations = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center", left: -5}}>
+    <View style={styles.container}>
+      <View style={{flexDirection: "row", alignItems: "center", left: -5, gap: 110, marginTop: -40}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
-      <Text style={{fontSize: 18, fontFamily: "Semibold", left: 65, top: 25}}>Variations</Text>
+      <Text style={{fontSize: 20, fontFamily: "Semibold", top: 25}}>Variations</Text>
       </View>
 
       <View style={styles.header}>
@@ -53,7 +53,7 @@ const Variations = () => {
       <TouchableOpacity style={styles.saveButton} onPress={() => router.push('/Offers')}>
         <Text style={styles.saveButtonText}>Save & Continue</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -72,14 +72,15 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     paddingVertical: 10,
-    width: 240
+    width: 270,
+    gap: 10
   },
   headerText: {
     fontSize: 16,
     fontFamily: 'Semibold',
     flex: 1,
     textAlign: 'center',
-    left: -4,
+    left: 5,
   },
   scrollView: {
     flex: 1,
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: '#FF8C00',
-    paddingVertical: 15,
+    paddingVertical: 18,
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 20,
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: 12
+    left: 25
   },
 });
 

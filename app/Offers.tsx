@@ -72,11 +72,11 @@ const Offers = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center"}}>
+      <View style={{flexDirection: "row", alignItems: "center", gap: 120, marginTop: -40}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
-      <Text style={{fontSize: 18, fontFamily: "Semibold", left: 95, top: 25}}>Offers</Text>
+      <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Offers</Text>
       </View>
       <ScrollView>
       <View style={styles.progressContainer}>

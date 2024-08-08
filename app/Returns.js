@@ -136,7 +136,7 @@ const Returns = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
@@ -164,7 +164,7 @@ const Returns = () => {
         </TouchableOpacity>
       </View>
       {renderContent()}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -178,9 +178,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 60,
+    paddingTop: 30,
     paddingBottom: 10,
-    gap: 25
+    gap: 40
   },
   backButton: {
     backgroundColor: "#eee",
@@ -232,13 +232,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
+    padding: 10,
+    marginBottom: 20
   },
   tabButton: {
     paddingVertical: 8,
     paddingHorizontal: 16,
   },
   tabText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#666',
   },
   activeTab: {

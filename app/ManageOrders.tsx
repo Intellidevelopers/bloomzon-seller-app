@@ -55,7 +55,8 @@ const ManageOrders: React.FC = () => {
           </View>
           <Text style={styles.orderPrice}>${item.price}</Text>
           <Text style={styles.orderDetails}>{item.orderId} · {item.date}</Text>
-          <Text
+       <View style={styles.orderStatut}>
+       <Text
             style={[
               styles.orderStatus,
               item.status === 'Cancelled' && styles.statusCancelled,
@@ -67,6 +68,7 @@ const ManageOrders: React.FC = () => {
           >
             {item.status}
           </Text>
+       </View>
         </View>
       </View>
     );
@@ -75,7 +77,7 @@ const ManageOrders: React.FC = () => {
   return (
     
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 50, marginTop: -20}}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 70, marginTop: -40}}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
@@ -103,7 +105,7 @@ const ManageOrders: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <Text style={{ fontFamily: "Semibold", fontSize: 18, marginBottom: 10 }}>Manage Orders</Text>
+      <Text style={{ fontFamily: "Semibold", fontSize: 18, marginBottom: 10, padding: 10 }}>Manage Orders</Text>
       <View style={styles.statusContainer}>
         <View style={[styles.statusItem, { backgroundColor: '#E3E8FF' }]}>
           <Text style={styles.statusText}>Pending</Text>
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 15,
-    width: SCREEN_WIDTH
+    overflow: "hidden"
   },
   header: {
     flexDirection: 'row',
@@ -190,7 +192,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    width: '95%',
+    alignSelf: "center"
   },
 
   searchInput: {
@@ -233,6 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 20,
+    padding: 5
   },
   statusItem: {
     alignItems: 'center',
@@ -240,7 +245,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     marginHorizontal: 5,
-    paddingHorizontal: 5,
+    paddingHorizontal: 2,
   },
   statusNumber: {
     fontSize: 18,
@@ -256,12 +261,16 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 10,
+    gap: 15
+
+
   },
   tabItem: {
     paddingVertical: 10,
     paddingHorizontal: 5,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee"
+    borderBottomColor: "#eee",
   },
   activeTabItem: {
     borderBottomWidth: 2,
@@ -276,9 +285,10 @@ const styles = StyleSheet.create({
   },
   orderItem: {
     flexDirection: 'row',
-    padding: 15,
+    padding: 25,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    
   },
   productImage: {
     width: 105,
@@ -307,24 +317,40 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 5,
     color: '#fff',
     alignSelf: 'flex-start',
+    borderRadius: 10,
+
+  },
+  orderStatut: {
+    borderRadius: 10,
   },
   statusPending: {
-    backgroundColor: '#878fff',
+    backgroundColor: '#edebff',
+    color: "#858dff"
   },
   statusCancelled: {
-    backgroundColor: '#ff5656',
+    backgroundColor: '#ffe9e7',
+    color: "red",
+    fontWeight: "500"
+
   },
   statusDelivered: {
-    backgroundColor: '#499f3e',
+    color: '#43a047',
+    borderRadius: 5,
+    backgroundColor: "#e1efdf",
+    fontWeight: "500"
+
+
   },
   statusProcessing: {
-    backgroundColor: '#ffc587',
+    backgroundColor: '#ffeddd',
+    color: "#f69731",
+    fontWeight: "500"
   },
   statusNewOrders: {
-    backgroundColor: '#b169f1',
+    backgroundColor: '#f4e6fd',
+    color: "#b26af1"
   },
   backButton: {
     marginBottom: 10,
@@ -334,6 +360,7 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
+    left: 10
   },
   overlay: {
     position: 'absolute',

@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { supabase } from '../utils/supabase'; // Adjust the import path as needed
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const NewPassword = () => {
+const ResetPassword = () => {
   const router = useRouter();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -30,6 +32,7 @@ const NewPassword = () => {
 
     try {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
+
       if (error) {
         setErrorMessage(error.message);
       } else {
@@ -146,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewPassword;
+export default ResetPassword;

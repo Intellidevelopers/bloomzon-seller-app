@@ -18,14 +18,14 @@ const RefundSummary = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={{flexDirection: "row", alignItems: "center", gap: 45}}>
+        <View style={styles.container}>
+            <View style={{flexDirection: "row", alignItems: "center", gap: 65, marginBottom: 10, marginTop: -10}}>
                 <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
                     <AntDesign name='arrowleft' size={22} />
                 </TouchableOpacity>
                 <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Refund Summary</Text>
             </View>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles.refundSummaryContainer}>
                     <Text style={styles.sectionTitle}>Refund Summary</Text>
                     <Text style={styles.sectionSubtitle}>
@@ -62,7 +62,7 @@ const RefundSummary = () => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 };
 

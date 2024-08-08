@@ -6,7 +6,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const AllReturns = ({ navigation, returns }) => {
   return (
-    <SafeAreaView style={styles.returnsContainer}>
+    <View style={styles.returnsContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
       {returns.map((item, index) => (
         <Pressable key={index} style={styles.returnItem} onPress={() => navigation.navigate('ReturnDetails', { returnDetails: item })}>
@@ -25,14 +25,14 @@ const AllReturns = ({ navigation, returns }) => {
         </Pressable>
       ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
     returnsContainer: {
     flex: 1,
-    padding: 16,
-    width: SCREEN_WIDTH
+    padding: 10,
+    width: SCREEN_WIDTH,
   },
   returnItem: {
     borderWidth: 2,

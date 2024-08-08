@@ -45,14 +45,7 @@ const Advertisement = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: "row",marginTop: 20, left: 10 }}>
-            <TouchableOpacity style={styles.tabsContainer}>
-              <View style={styles.tabContent}>
-                <Ionicons name='megaphone' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
-                <Text style={styles.tabText}>Campaign Manager</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          
     </SafeAreaView>
   );
 };

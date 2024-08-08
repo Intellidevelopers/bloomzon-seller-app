@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/ProductList.jsx", "app/Returns.js", "app/ReturnDetails.js", "app/RefundInformation.tsx", "app/NewPassword.js"  ]
+, "app/ProductList.jsx", "app/Returns.js", "app/ReturnDetails.js", "app/RefundInformation.tsx", "app/ResetPassword.js", "components/RequestPayment.tsx", "app/Request.js", "app/(tabs)/messages.js", "app/ChatScreen.js"  ]
 }

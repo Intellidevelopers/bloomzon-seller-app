@@ -70,14 +70,14 @@ const RefundInformation = () => {
   
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 35 }}>
+    <View style={styles.container}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 50, marginBottom: 10 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Refund Information</Text>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ left: 16, marginBottom: 20 }}>
           <Text style={{ fontFamily: "Semibold", fontSize: 18 }}>
             Refund Details
@@ -216,7 +216,7 @@ const RefundInformation = () => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 

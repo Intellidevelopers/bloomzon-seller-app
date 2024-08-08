@@ -31,7 +31,7 @@ const Register: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22} />
       </TouchableOpacity>
@@ -103,7 +103,7 @@ const Register: React.FC = () => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 

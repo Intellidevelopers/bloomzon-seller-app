@@ -8,7 +8,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const ContactBuyer = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
@@ -30,7 +30,7 @@ const ContactBuyer = () => {
           <Text style={styles.sendButtonText}>Send Message</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff9800',
     padding: 15,
     borderRadius: 5,
-    marginTop: '85%',
+    marginTop: '70%',
     alignItems: 'center',
   },
   sendButtonText: {
@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 60,
+    paddingTop: 30,
     paddingBottom: 10,
-    gap: 10,
+    gap: 30,
     marginBottom: 20
   },
   backButton: {

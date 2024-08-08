@@ -87,13 +87,21 @@ const AddProduct = () => {
     setSelectedValues(prevValues => ({ ...prevValues, bookingDate: date.toLocaleDateString() }));
     hideDatePicker();
   };
+
+  const generateUniqueId = () => {
+    const prefix = 'BL';
+    const randomPart = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates a random string of length 8
+    return `${prefix}${randomPart}`;
+  };
+  
+  const [productId, setProductId] = useState(generateUniqueId());
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center"}}>
+    <View style={styles.container}>
+      <View style={{flexDirection: "row", alignItems: "center", gap: 80, marginTop: -25}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
-      <Text style={{fontSize: 18, fontFamily: "Semibold", left: 50, top: 25}}>Product Details</Text>
+      <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Product Details</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.progressContainer}>
@@ -185,9 +193,13 @@ const AddProduct = () => {
                 borderRadius: 7,
                 borderColor: '#eee',
                 left: 13,
+                fontFamily: "Semibold",
+                color: "#666"
               }}
-              placeholder="Enter product ID"
               keyboardType="default"
+              value={productId}
+              editable={false}
+              readOnly
             />
 
             <TouchableOpacity onPress={() => openModal('Select')}>
@@ -415,7 +427,7 @@ const AddProduct = () => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 

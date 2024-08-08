@@ -55,11 +55,11 @@ const Reorder = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-       <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
+       <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20, gap: 110, marginTop: -10 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Feather name='x' size={22} />
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, fontFamily: "Semibold", left: 92, top: 25 }}>Reorder</Text>
+        <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Reorder</Text>
       </View>
       <DraggableFlatList
         data={data}

@@ -25,7 +25,7 @@ const UploadSuccess: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
         <View style={{ alignItems: "flex-end", marginTop: -20 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.dismissAll()}>
           <Feather name='x' size={22} />
@@ -43,7 +43,7 @@ const UploadSuccess: React.FC = () => {
       <TouchableOpacity style={styles.addButton} onPress={() => router.push('/AddProduct')}>
         <Text style={styles.addButtonText}>Add a New Product</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 20,
-    marginTop: 90
+    marginTop: 50
   },
   addButton: {
     backgroundColor: '#fff',

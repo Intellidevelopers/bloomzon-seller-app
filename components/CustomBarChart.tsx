@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bar: {
-    width: 35,
+    width: 40,
     backgroundColor: '#00D1A3',
     borderRadius: 5,
     borderTopLeftRadius: 10,
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
   },
   label: {
     marginTop: 5,
-    fontSize: 12,
+    fontSize: 14,
+    color: "#666"
   },
 });
 

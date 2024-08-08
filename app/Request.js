@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import RequestPayment from '@/components/RequestPayment'
 
-const messages = () => {
+const Request = () => {
   return (
-    <View>
-      <Text>messages</Text>
-    </View>
+   <RequestPayment/>
   )
 }
 
-export default messages
+export default Request
 
 const styles = StyleSheet.create({})

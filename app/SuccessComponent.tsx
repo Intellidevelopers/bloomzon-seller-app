@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import WalletScreen from '@/components/WalletScreen'
+import Success from '@/components/Success'
 
-const wallet = () => {
+const SuccessComponent = () => {
   return (
-     <WalletScreen/>
+    <Success/>
   )
 }
 
-export default wallet
+export default SuccessComponent
 
 const styles = StyleSheet.create({})

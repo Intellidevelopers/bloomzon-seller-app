@@ -23,7 +23,7 @@ const ForgotPassword: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
@@ -40,7 +40,7 @@ const ForgotPassword: React.FC = () => {
       <TouchableOpacity style={styles.loginButton} onPress={handlePasswordReset}>
         <Text style={styles.loginButtonText}>Continue</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
