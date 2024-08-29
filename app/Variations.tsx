@@ -23,11 +23,13 @@ const Variations = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center", left: -5, gap: 110, marginTop: -40}}>
+      <View style={{flexDirection: "row", alignItems: "center", marginTop: -40,  justifyContent: "space-between"}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
       <Text style={{fontSize: 20, fontFamily: "Semibold", top: 25}}>Variations</Text>
+      <TouchableOpacity style={styles.backButton2}>
+      </TouchableOpacity>
       </View>
 
       <View style={styles.header}>
@@ -36,7 +38,7 @@ const Variations = () => {
         <Text style={styles.headerText}>Seller SKU</Text>
       </View>
 
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {variations.map((variation, index) => (
           <View key={index} style={styles.variationRow}>
             <Text style={styles.variationText}>{variation.color}</Text>
@@ -72,8 +74,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     paddingVertical: 10,
-    width: 270,
-    gap: 10
+    width: 250,
+    left: -10
   },
   headerText: {
     fontSize: 16,
@@ -126,7 +128,15 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: 25
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

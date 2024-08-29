@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    backgroundColor: "#96f4b3",
+    backgroundColor: "#b7d7c6",
     justifyContent: "space-around",
     padding: 10,
     width: '120%',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   healthStatusButton: {
-    backgroundColor: '#26a64d',
+    backgroundColor: '#00885c',
     borderRadius: 30,
     paddingHorizontal: 30,
     paddingVertical: 12,
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 60,
     paddingBottom: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    gap: 20
   },
   backButton: {
     backgroundColor: "#eee",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, TextInput, StyleSheet, ScrollView, Pressable, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, FlatList, TextInput, StyleSheet, ScrollView, Pressable, Dimensions, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
@@ -72,11 +72,13 @@ const Offers = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center", gap: 120, marginTop: -40}}>
+      <View style={{flexDirection: "row", alignItems: "center", marginTop: -30, justifyContent: "space-between"}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
       <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Offers</Text>
+      <TouchableOpacity style={styles.backButton2}>
+      </TouchableOpacity>
       </View>
       <ScrollView>
       <View style={styles.progressContainer}>
@@ -256,13 +258,10 @@ const Offers = () => {
       </TouchableOpacity>
       </ScrollView>
 
-      <Modal visible={modalVisible} transparent={true} animationType="slide">
+      <Modal visible={modalVisible} transparent={true} animationType="fade">
+      <TouchableWithoutFeedback onPress={closeModal}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-
             <FlatList
               data={modalData}
               renderItem={renderModalItem}
@@ -270,6 +269,7 @@ const Offers = () => {
             />
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </SafeAreaView>
   );
@@ -479,6 +479,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

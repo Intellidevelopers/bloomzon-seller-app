@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, StatusBar, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, StatusBar, Dimensions, Modal, Pressable } from 'react-native';
 import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
@@ -28,8 +28,17 @@ const Products: React.FC = () => {
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [searchQuery, setSearchQuery] = useState('');
 
+  const filteredOrders = orders.filter(order => 
+    (selectedTab === 'All' || order.status === selectedTab) &&
+    order.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
+
   const toggleMenu = (order: any, event: any) => {
     setSelectedOrder(order);
+    setMenuModalVisible(true); // Show menu modal
     setMenuVisible(!menuVisible);
 
     if (!menuVisible) {
@@ -40,13 +49,18 @@ const Products: React.FC = () => {
 
   const closeMenu = () => {
     setMenuVisible(false);
+    setMenuModalVisible(false);
   };
 
-  const filteredOrders = orders.filter(order => 
-    (selectedTab === 'All' || order.status === selectedTab) &&
-    order.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const openDeleteModal = () => {
+    setMenuModalVisible(false); // Close the menu modal
+    setDeleteModalVisible(true); // Open delete confirmation modal
+  };
 
+  const handleDelete = () => {
+    // Add your delete logic here
+    setDeleteModalVisible(false);
+  };
   const renderOrderItem = ({ item }: any) => (
     <View style={styles.orderItem}>
       <Image source={item.image} style={styles.productImage} />
@@ -68,11 +82,13 @@ const Products: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, gap: 120 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -60, justifyContent: "space-between"}}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Products</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.searchContainer}>
@@ -124,25 +140,30 @@ const Products: React.FC = () => {
           style={styles.products}
         />
 
-        {menuVisible && (
-          <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
-            <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={closeMenu}>
-              <AntDesign name="close" size={20} color="red" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <AntDesign name="calendar" size={20} color="#000" />
-              <Text style={styles.menuItemText}>Schedule Pickup</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <AntDesign name="printer" size={20} color="#000" />
-              <Text style={styles.menuItemText}>Print Packing Slip</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <AntDesign name="closecircleo" size={20} color="red" />
-              <Text style={[styles.menuItemText, { color: 'red' }]}>Cancel Order</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        {/* Menu Modal */}
+        <Modal
+          transparent={true}
+          visible={menuModalVisible}
+          animationType="fade"
+          onRequestClose={closeMenu}
+        >
+          <Pressable style={styles.overlay} onPress={closeMenu}>
+            <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="calendar" size={20} color="#000" />
+                <Text style={styles.menuItemText}>Schedule Pickup</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="printer" size={20} color="#000" />
+                <Text style={styles.menuItemText}>Print Packing Slip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="closecircleo" size={20} color="red" />
+                <Text style={[styles.menuItemText, { color: 'red' }]}>Cancel Order</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
       </ScrollView>
     </View>
   );
@@ -336,7 +357,16 @@ const styles = StyleSheet.create({
   },
   products:{
     padding: 15
-  }
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
+  },
 });
 
 export default Products;

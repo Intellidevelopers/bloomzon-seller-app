@@ -25,6 +25,8 @@ const ReturnDetails = () => {
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Returns Details</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.returnItem}>
@@ -116,10 +118,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 30,
     paddingBottom: 10,
-    gap: 25,
-    marginBottom: 20
+    marginBottom: 20,
+    justifyContent: "space-between"
   },
   backButton: {
     backgroundColor: "#eee",
@@ -188,6 +189,14 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 4,
     fontWeight: '700'
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
   },
 });
 

@@ -23,11 +23,13 @@ const Keywords = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -40, gap: 110 }}>
+      <View style={{ flexDirection: "row", alignItems: "center",justifyContent: "space-between", marginTop: -30 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Keywords</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.progressContainer}>
@@ -198,6 +200,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 10,
     color: '#555',
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

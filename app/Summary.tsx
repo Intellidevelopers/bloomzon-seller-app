@@ -23,11 +23,13 @@ const Summary: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20, marginTop: -40, gap: 85 }}>
+       <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, justifyContent: "space-between"}}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Summary</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.title}>Review Your Request</Text>
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 2,
     paddingVertical: 18,
-    paddingHorizontal: 55,
+    paddingHorizontal: 50,
     borderRadius: 8,
   },
   cancelButtonText: {
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: '#FF8c00',
     paddingVertical: 18,
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: "center"
   },
@@ -149,7 +151,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5
-  }
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+  },
 });
 
 export default Summary;

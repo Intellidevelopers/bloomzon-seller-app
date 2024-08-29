@@ -1,6 +1,6 @@
 import { Dimensions, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome6, MaterialIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -10,13 +10,23 @@ const ScrollCards = () => {
   return (
     <View>
       <ScrollView horizontal style={styles.cardContainer} showsHorizontalScrollIndicator={false} scrollEnabled={true}>
-                  <Pressable onPress={() => router.push('/ManageOrders')}>
+                  <Pressable onPress={() => router.push('/Orders')}>
                     <View style={styles.card}>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                     <Text style={styles.cardTitle}>Total Orders</Text>
                     <MaterialIcons name='keyboard-arrow-right' size={20} color={'#00D1A3'}/>
                     </View>
                       <Text style={styles.cardValue}>1</Text>
+                    </View>
+                  </Pressable>
+
+                  <Pressable onPress={() => router.push('/Orders')}>
+                    <View style={styles.card}>
+                    <View style={{flexDirection: "row", alignItems: "center", gap: 5}}>
+                      <FontAwesome6 name='users-line' size={20} color={'#00D1A3'}/>
+                      <Text style={styles.cardTitle}>Followers</Text>
+                    </View>
+                      <Text style={styles.cardValue}>507</Text>
                     </View>
                   </Pressable>
         
@@ -121,7 +131,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 16,
-        marginRight: 10,
+        marginRight: 5,
         elevation: 2,
         alignSelf: "center",
         left: 5,
@@ -152,7 +162,7 @@ const styles = StyleSheet.create({
 
       },
       cardTitle: {
-        fontSize: 13,
+        fontSize: 14,
         color: '#00D1A3',
         alignItems: "center"
       },

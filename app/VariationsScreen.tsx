@@ -50,11 +50,13 @@ const VariationsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: "row", alignItems: "center", gap: 95, marginTop: -35}}>
+      <View style={{flexDirection: "row", alignItems: "center", marginTop: -35, justifyContent: "space-between"}}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <AntDesign name='arrowleft' size={22}/>
       </TouchableOpacity>
       <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Variations</Text>
+      <TouchableOpacity style={styles.backButton2}>
+      </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.progressContainer}>
@@ -144,11 +146,11 @@ const VariationsScreen = () => {
       )}
       </ScrollView>
       <View style={{flexDirection: "row", justifyContent: "space-between", marginBottom: 15}}>
-        <TouchableOpacity style={{backgroundColor: "#eee", padding: 18, paddingHorizontal: 80, borderRadius: 8, borderWidth: 2, borderColor: "#ddd"}} onPress={() => router.push('/Offers')}>
+        <TouchableOpacity style={{backgroundColor: "#eee", padding: 18, paddingHorizontal: 65, borderRadius: 8, borderWidth: 2, borderColor: "#ddd"}} onPress={() => router.push('/Offers')}>
           <Text style={{color: "#555", fontFamily: "Regular"}}>Skip</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{backgroundColor: "#FF8C00", padding: 18, paddingHorizontal: 40, borderRadius: 8,}} onPress={() => router.push('/Variations')}>
+        <TouchableOpacity style={{backgroundColor: "#FF8C00", padding: 18, paddingHorizontal: 35, borderRadius: 8,}} onPress={() => router.push('/Variations')}>
           <Text style={{color: "#fff", fontFamily: "Regular"}}>Add Variations</Text>
         </TouchableOpacity>
       </View>
@@ -263,6 +265,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Dimensions } from 'react-native';
-import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -9,12 +9,14 @@ const WalletScreen: React.FC = () => {
   return (
     <View style={styles.container}>
                 {/* Header */}
-                <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, gap: 92 }}>
-                    <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-                    <AntDesign name='arrowleft' size={22} />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Payments</Text>
-                </View>
+        <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, justifyContent: "space-between"}}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+            <AntDesign name='arrowleft' size={22} />
+            </TouchableOpacity>
+            <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Payments</Text>
+            <TouchableOpacity style={styles.backButton2}>
+            </TouchableOpacity>
+        </View>
       <ScrollView showsVerticalScrollIndicator={false}>
 
         {/* Balance Card */}
@@ -64,13 +66,13 @@ const WalletScreen: React.FC = () => {
         {/* Options */}
         <TouchableOpacity style={[styles.optionContainer, styles.option1]}>
           <View style={styles.optionIconContainer}>
-            <AntDesign name='creditcard' size={24} color='#000' />
+            <MaterialCommunityIcons name='credit-card-check' size={18} color='#00D1A3' />
           </View>
           <Text style={styles.optionText}>Payment Methods</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.optionContainer}>
           <View style={styles.optionIconContainer}>
-            <AntDesign name='questioncircleo' size={24} color='#000' />
+            <Entypo name='help-with-circle' size={24} color='#00D1A3' />
           </View>
           <Text style={styles.optionText}>Help</Text>
         </TouchableOpacity>
@@ -199,9 +201,10 @@ const styles = StyleSheet.create({
   },
   optionIconContainer: {
     backgroundColor: '#E6F5FF',
-    borderRadius: 24,
-    padding: 8,
+    borderRadius: 100,
+    padding: 11,
     marginRight: 16,
+    paddingVertical: 10
   },
   optionText: {
     fontSize: 16,
@@ -210,7 +213,16 @@ const styles = StyleSheet.create({
   option1:{
     borderBottomWidth: 1,
     borderBottomColor: "#ddd"
-  }
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
+  },
 });
 
 export default WalletScreen;

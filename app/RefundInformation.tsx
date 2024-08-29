@@ -71,11 +71,13 @@ const RefundInformation = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 50, marginBottom: 10 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Refund Information</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ left: 16, marginBottom: 20 }}>
@@ -335,6 +337,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Medium',
     color: '#fff',
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
   },
 });
 

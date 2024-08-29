@@ -1,5 +1,5 @@
 // TabLayout.js
-import { MaterialIcons } from '@expo/vector-icons';
+import { Feather, MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -42,6 +42,14 @@ export default function _Layout() {
           title: 'Wallet',
           headerShown: false,
           tabBarIcon: ({ color }) => <MaterialIcons size={28} name="wallet" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: 'My Account',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Feather size={28} name="user" color={color} />,
         }}
       />
     </Tabs>

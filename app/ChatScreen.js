@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, Keyboard, KeyboardAvoidingView, Platform, Image, Alert, Vibration, RefreshControl, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, Keyboard, KeyboardAvoidingView, Platform, Image, Alert, Vibration, RefreshControl, ActivityIndicator, ScrollView, Pressable } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import { router } from 'expo-router';
+import * as Clipboard from 'expo-clipboard';
+
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -131,28 +133,32 @@ const ChatScreen = () => {
           await saveMessages(updatedMessages);
         }},
         { text: "Archive", onPress: () => console.log('Archived') },
-        { text: "Reply", onPress: () => console.log('Reply') },
+        { text: "Copy", onPress: () => {
+          Clipboard.setString(message.text);
+          Alert.alert("Copied", "Message copied to clipboard");
+        }},
         { text: "Cancel", style: "cancel" }
       ],
       { cancelable: true }
     );
   };
+  
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onLongPress={() => handleLongPress(item)}>
+    <Pressable onLongPress={() => handleLongPress(item)}>
       <View style={[styles.messageContainer, item.sender === 'user' ? styles.userMessage : styles.otherMessage]}>
         <Text style={[styles.timestamp, item.sender === 'user' ? styles.userTimestamp : styles.otherTimestamp]}>
           {item.timestamp}
         </Text>
         {item.type === 'text' ? (
-          <View style={styles.messageText}>
-            <Text style={styles.message}>{item.text}</Text>
+          <View style={item.sender === 'user' ? styles.userMessageTextContainer : styles.otherMessageTextContainer}>
+            <Text style={item.sender === 'user' ? styles.otherMessageText : styles.userText}>{item.text}</Text>
           </View>
         ) : (
           <Image source={{ uri: item.image }} style={styles.image} />
         )}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   const onRefresh = async () => {
@@ -254,7 +260,7 @@ const ChatScreen = () => {
           </View>
           <View style={styles.summary}>
             <Text style={styles.orderDetail}>Tracking number:</Text>
-            <Text style={styles.orderDetailValue}>#{trackingNumber}</Text>
+            <Text style={styles.orderDetailValue}>{trackingNumber}</Text>
           </View>
           <View style={styles.summary}>
             <Text style={styles.orderDetail}>Status:</Text>
@@ -288,18 +294,16 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     maxWidth: '80%',
     borderRadius: 15,
-    backgroundColor: '#fff', 
     paddingBottom: 20,
-    left: 6
+    left: 6,
   },
   userMessage: {
     alignSelf: 'flex-end',
   },
   otherMessage: {
     alignSelf: 'flex-start',
-    alignItems: "flex-start",
   },
-  messageText: {
+  userMessageTextContainer: {
     fontSize: 18,
     color: '#fff',
     backgroundColor: "#ff8c00",
@@ -307,6 +311,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 14,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14
+  },
+  otherMessageTextContainer: {
+    fontSize: 18,
+    color: '#000',
+    backgroundColor: "#ffe5cc",
+    padding: 10,
+    borderBottomRightRadius: 14,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
   },
   timestamp: {
     fontSize: 12,
@@ -318,6 +331,7 @@ const styles = StyleSheet.create({
   },
   otherTimestamp: {
     color: '#000',
+    alignSelf: "flex-start"
   },
   inputContainer: {
     flexDirection: 'row',
@@ -436,6 +450,12 @@ const styles = StyleSheet.create({
   message:{
       color: "#fff",
       fontSize: 16
+  },
+  userText:{
+    color: "#000"
+  },
+  otherMessageText:{
+    color: "#fff"
   }
 });
 

@@ -16,7 +16,7 @@ const Advertisement = () => {
         <Text style={styles.headerTitle}>Advertisement</Text>
       </View>
       <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 20 }}>
-            <TouchableOpacity style={styles.tabsContainer}>
+            <TouchableOpacity style={styles.tabsContainer} onPress={() => router.push('/DealsScreen')}>
               <View style={styles.tabContent}>
                 <MaterialCommunityIcons name='brightness-percent' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
                 <Text style={styles.tabText}>Deals</Text>
@@ -42,6 +42,21 @@ const Advertisement = () => {
               <View style={styles.tabContent}>
                 <Ionicons name='megaphone' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
                 <Text style={styles.tabText}>Promotions</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 20 }}>
+            <TouchableOpacity style={styles.tabsContainer}>
+              <View style={styles.tabContent}>
+              <Ionicons name='megaphone' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
+              <Text style={styles.tabText}>Campaign Manager</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.tabsContainer1}>
+              <View style={styles.tabContent}>
+               
               </View>
             </TouchableOpacity>
           </View>
@@ -101,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 60,
+    paddingTop: 35,
     paddingBottom: 10,
     gap: 10,
     marginBottom: 20
@@ -125,6 +140,12 @@ const styles = StyleSheet.create({
     padding: 25,
     borderRadius: 10,
     borderColor: "#ddd",
+    width: 160,
+    
+  },
+  tabsContainer1: {
+    padding: 25,
+    borderRadius: 10,
     width: 160,
     
   },

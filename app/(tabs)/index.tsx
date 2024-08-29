@@ -1,5 +1,5 @@
 import CustomBarChart from '@/components/CustomBarChart';
-import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 import { router, useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import ScrollCards from '@/components/ScrollCards';
@@ -117,19 +117,19 @@ const index = () => {
     <View style={styles.navigationContainer}>
       <View style={styles.sidebar}>
         <TouchableOpacity onPress={closeDrawer} style={styles.closeButton}>
-          <Ionicons name="menu-outline" size={20} color="#000" />
+          <Feather name="x" size={20} color="#000" />
         </TouchableOpacity>
         <Text style={styles.title}><Text style={{ color: "#FF8C00" }}>Bloomzon</Text> Seller</Text>
       </View>
 
       <View style={styles.userInfo}>
-        <TouchableOpacity style={styles.profile}>
+        <TouchableOpacity style={styles.profile} onPress={() => router.push('/(tabs)/account')}>
           <Image source={require('../../assets/flags/usa.png')} style={styles.userImage} />
           <Text style={styles.userName}>Imobighe</Text>
           <AntDesign name="down" size={16} color="#000" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/SettingScreen')}>
           <View style={styles.settingsIcon}>
             <Ionicons name="settings" size={30} color="#555" />
           </View>
@@ -187,7 +187,7 @@ const index = () => {
                     </TouchableOpacity>
                   </View>
 
-                  <Modal visible={isDropdownVisible} transparent animationType="slide">
+                  <Modal visible={isDropdownVisible} transparent animationType="fade">
                     <TouchableOpacity style={styles.modalOverlay} onPress={() => setDropdownVisible(false)}>
                       <View style={styles.modalContent}>
                         {['6 months', '8 months', '10 months', '1 year'].map((month) => (
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#00D1A3',
@@ -335,9 +335,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 10,
-    left: -15,
+    left: -10,
     borderBottomWidth: 1,
     borderBottomColor: '#DDD',
+    marginTop: 10
   },
   closeButton: {
     marginBottom: 10,
@@ -389,9 +390,10 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomWidth: 2,
     borderBottomColor: "#ddd",
+    marginTop: 15
   },
   chartPrice:{
-    marginBottom: 20,
+    marginBottom: 13,
     color: "#666",
     textAlign: "right"
   },

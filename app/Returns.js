@@ -142,6 +142,8 @@ const Returns = () => {
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Manage Returns</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
@@ -178,9 +180,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 30,
+    paddingTop: 15,
     paddingBottom: 10,
-    gap: 40
+    justifyContent: "space-between"
   },
   backButton: {
     backgroundColor: "#eee",
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   tabText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#666',
   },
   activeTab: {
@@ -301,6 +303,14 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 4,
     fontWeight: "700"
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
   },
 });
 

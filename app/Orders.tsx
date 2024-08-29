@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, SafeAreaView, Dimensions } from 'react-native';
-import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, SafeAreaView, Dimensions, Modal, Pressable } from 'react-native';
+import { AntDesign, Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -22,41 +22,44 @@ const orders = [
   // Add more orders as needed
 ];
 
-const ManageOrders: React.FC = () => {
-    const [selectedTab, setSelectedTab] = useState('All Orders');
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [selectedOrder, setSelectedOrder] = useState(null);
-    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-  
-    const toggleMenu = (order: any, event: any) => {
-      setSelectedOrder(order);
-      setMenuVisible(!menuVisible);
-  
-      if (!menuVisible) {
-        // Get button position
-        const { pageX, pageY } = event.nativeEvent;
-        setMenuPosition({ x: pageX, y: pageY });
-      }
-    };
-  
-    const closeMenu = () => {
-      setMenuVisible(false);
-    };
+const Orders: React.FC = () => {
+  const [selectedTab, setSelectedTab] = useState('All Orders');
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
+
+  const toggleMenu = (order: any, event: any) => {
+    setSelectedOrder(order);
+    setMenuModalVisible(true); // Show menu modal
+    setMenuVisible(!menuVisible);
+
+    if (!menuVisible) {
+      const { pageX, pageY } = event.nativeEvent;
+      setMenuPosition({ x: pageX, y: pageY });
+    }
+  };
+
+  const closeMenu = () => {
+    setMenuVisible(false);
+    setMenuModalVisible(false); // Close the menu modal
+  };
+
 
     const renderOrderItem = ({ item }: any) => (
       <View style={styles.orderItem}>
-        <Image source={item.image} style={styles.productImage} />
-        <View style={styles.orderTextContainer}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.orderTitle}>{item.title}</Text>
-            <TouchableOpacity onPress={(e) => toggleMenu(item, e)}>
-              <Feather name='more-horizontal' size={22} />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.orderPrice}>${item.price}</Text>
-          <Text style={styles.orderDetails}>{item.orderId} · {item.date}</Text>
-       <View style={styles.orderStatut}>
-       <Text
+      <Image source={item.image} style={styles.productImage} />
+      <View style={styles.orderTextContainer}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.orderTitle}>{item.title}</Text>
+          <TouchableOpacity onPress={(event) => toggleMenu(item, event)}>
+            <Feather name='more-horizontal' size={22} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.orderPrice}>${item.price}</Text>
+        <Text style={styles.orderDetails}>{item.orderId} · {item.date}</Text>
+        <View style={styles.orderStatut}>
+          <Text
             style={[
               styles.orderStatus,
               item.status === 'Cancelled' && styles.statusCancelled,
@@ -68,21 +71,24 @@ const ManageOrders: React.FC = () => {
           >
             {item.status}
           </Text>
-       </View>
         </View>
       </View>
+    </View>
     );
     
 
   return (
-    
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 70, marginTop: -40}}>
+      <View style={{ flexDirection: "row", alignItems: "center",justifyContent: "space-between", marginTop: -30 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Manage Orders</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
 
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
@@ -94,8 +100,6 @@ const ManageOrders: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-
-      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewBloomzonButton}>
         <TouchableOpacity>
             <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 140 }}>
@@ -142,31 +146,36 @@ const ManageOrders: React.FC = () => {
       </View>
 
       <FlatList
-        data={orders.filter(order => selectedTab === 'All Orders' || order.status === selectedTab)}
-        renderItem={renderOrderItem}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+          data={orders.filter(order => selectedTab === 'All Orders' || order.status === selectedTab)}
+          renderItem={renderOrderItem}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+        />
 
-{menuVisible && (
-  <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
-    <TouchableOpacity style={{alignSelf: "flex-end", }} onPress={closeMenu}>
-      <AntDesign name="close" size={20} color="red" />
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.menuItem}>
-      <AntDesign name="calendar" size={20} color="#000" />
-      <Text style={styles.menuItemText}>Schedule Pickup</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.menuItem}>
-      <AntDesign name="printer" size={20} color="#000" />
-      <Text style={styles.menuItemText}>Print Packing Slip</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.menuItem}>
-      <AntDesign name="closecircleo" size={20} color="red" />
-      <Text style={[styles.menuItemText, { color: 'red' }]}>Cancel Order</Text>
-    </TouchableOpacity>
-  </View>
-)}
+        {/* Modal Structure */}
+        <Modal
+          transparent={true}
+          visible={menuModalVisible}
+          animationType="fade"
+          onRequestClose={closeMenu}
+        >
+          <Pressable style={styles.overlay} onPress={closeMenu}>
+            <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="calendar" size={20} color="#000" />
+                <Text style={styles.menuItemText}>Schedule Pickup</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="printer" size={20} color="#000" />
+                <Text style={styles.menuItemText}>Print Packing Slip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.menuItem}>
+                <AntDesign name="closecircleo" size={20} color="red" />
+                <Text style={[styles.menuItemText, { color: 'red' }]}>Cancel Order</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
 </ScrollView>
     </SafeAreaView>
   );
@@ -204,7 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 55,
+    height: 50,
     borderColor: '#eee',
     borderWidth: 2,
     borderRadius: 8,
@@ -216,7 +225,7 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     backgroundColor: '#F37300',
-    padding: 15,
+    padding: 13,
     borderRadius: 5,
     marginLeft: 10,
   },
@@ -360,7 +369,6 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: 10
   },
   overlay: {
     position: 'absolute',
@@ -393,6 +401,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
   },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
+  },
 });
 
-export default ManageOrders;
+export default Orders;

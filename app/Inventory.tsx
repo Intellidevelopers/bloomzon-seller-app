@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, Dimensions, SafeAreaView } from 'react-native';
-import { AntDesign, Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image, ScrollView, Dimensions, SafeAreaView, Modal, Pressable } from 'react-native';
+import { AntDesign, Feather, FontAwesome5, FontAwesome6, SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -23,17 +23,19 @@ const orders = [
 ];
 
 const Inventory: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState('All'); // Default to 'All'
+  const [selectedTab, setSelectedTab] = useState('All');
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
 
   const toggleMenu = (order: any, event: any) => {
     setSelectedOrder(order);
+    setMenuModalVisible(true); // Show menu modal
     setMenuVisible(!menuVisible);
 
     if (!menuVisible) {
-      // Get button position
       const { pageX, pageY } = event.nativeEvent;
       setMenuPosition({ x: pageX, y: pageY });
     }
@@ -41,36 +43,53 @@ const Inventory: React.FC = () => {
 
   const closeMenu = () => {
     setMenuVisible(false);
+    setMenuModalVisible(false);
+  };
+
+  const openDeleteModal = () => {
+    setMenuModalVisible(false); // Close the menu modal
+    setDeleteModalVisible(true); // Open delete confirmation modal
+  };
+
+  const handleDelete = () => {
+    // Add your delete logic here
+    setDeleteModalVisible(false);
   };
 
   const renderOrderItem = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Image source={item.image} style={styles.productImage} />
-      <View style={styles.orderTextContainer}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.orderTitle}>{item.title}</Text>
-          <TouchableOpacity onPress={(e) => toggleMenu(item, e)}>
-            <Feather name='more-horizontal' size={22} />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.orderPrice}>${item.price}</Text>
-        <Text style={styles.orderDetails}><Text style={{ fontWeight: "700", color: "#000" }}>SKU:</Text> {item.sku}</Text>
-        <Text style={[styles.orderStatus, item.status === 'Inactive' ? styles.statusCancelled : styles.statusPending]}>
-          <Text style={{ fontWeight: "700", color: "#000", gap: 10 }}>Status:</Text> {item.status}
-        </Text>
+    <Image source={item.image} style={styles.productImage} />
+    <View style={styles.orderTextContainer}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={styles.orderTitle}>{item.title}</Text>
+        <TouchableOpacity onPress={(event) => toggleMenu(item, event)}>
+          <Feather name='more-horizontal' size={22} />
+        </TouchableOpacity>
       </View>
+      <Text style={styles.orderPrice}>${item.price}</Text>
+      <Text style={styles.orderDetails}><Text style={{ fontWeight: "700", color: "#000" }}>SKU:</Text> {item.sku}</Text>
+      <Text style={[styles.orderStatus, item.status === 'Inactive' ? styles.statusCancelled : styles.statusPending]}>
+        <Text style={{ fontWeight: "700", color: "#000" }}>Status:</Text> {item.status}
+      </Text>
     </View>
+  </View>
   );
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 60, marginTop: -20, position: "static" }}>
+      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -20, justifyContent: "space-between"}}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Manage Inventory</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
 
+      
+
+
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
             <Feather name='search' size={22} color='#777' style={styles.searchIcon} />
@@ -79,10 +98,8 @@ const Inventory: React.FC = () => {
           <TouchableOpacity style={styles.filterIcon}>
             <FontAwesome5 name="filter" size={20} color="white" />
           </TouchableOpacity>
-        </View>
+      </View>
 
-
-    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewBloomzonButton}>
         <TouchableOpacity>
           <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", left: 195 }}>
@@ -115,29 +132,60 @@ const Inventory: React.FC = () => {
         showsVerticalScrollIndicator={false}
       />
 
-      {menuVisible && (
-        <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
-          <TouchableOpacity style={{ alignSelf: "flex-end", }} onPress={closeMenu}>
-            <AntDesign name="close" size={20} color="red" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <SimpleLineIcons name="pencil" size={20} color="#000" />
-            <Text style={styles.menuItemText}>Edit Listing</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <AntDesign name="reload1" size={20} color="#000" />
-            <Text style={styles.menuItemText}>Change to Bloomzon Ship</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <AntDesign name="barchart" size={20} color="#000" />
-            <Text style={styles.menuItemText}>Advertise Listing</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <AntDesign name="delete" size={20} color="red" />
-            <Text style={[styles.menuItemText, { color: 'red' }]}>Delete Listing</Text>
-          </TouchableOpacity>
+      {/* Menu Modal */}
+      <Modal
+        transparent={true}
+        visible={menuModalVisible}
+        animationType="fade"
+        onRequestClose={closeMenu}
+      >
+        <Pressable style={styles.overlay} onPress={closeMenu}>
+          <View style={[styles.menuCard, { top: menuPosition.y - 20, left: menuPosition.x - 200 }]}>
+            <TouchableOpacity style={styles.menuItem}>
+              <SimpleLineIcons name="pencil" size={20} color="#000" />
+              <Text style={styles.menuItemText}>Edit Listing</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem}>
+              <AntDesign name="reload1" size={20} color="#000" />
+              <Text style={styles.menuItemText}>Change to Bloomzon Ship</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem}>
+              <AntDesign name="barchart" size={20} color="#000" />
+              <Text style={styles.menuItemText}>Advertise Listing</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem} onPress={openDeleteModal}>
+              <AntDesign name="delete" size={20} color="red" />
+              <Text style={[styles.menuItemText, { color: 'red' }]}>Delete Listing</Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Modal>
+
+      
+
+       {/* Delete Confirmation Modal */}
+       <Modal
+        transparent={true}
+        visible={deleteModalVisible}
+        animationType="fade"
+        onRequestClose={() => setDeleteModalVisible(false)}
+      >
+        <View style={styles.overlay}>
+          <View style={styles.deleteModal}>
+            <FontAwesome6 style={{marginBottom: 30, marginTop: 15}} name="trash-can" size={50} color="#ff8c00" />
+            <Text style={styles.deleteModalText}>Are you sure you want to delete this listing?</Text>
+            <Text style={styles.subtext}>"ORANGE-SHIRT-WOMEN"</Text>
+            <View style={styles.deleteModalButtons}>
+              <TouchableOpacity style={styles.cancelButton} onPress={() => setDeleteModalVisible(false)}>
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      )}
+      </Modal>
       </ScrollView>
     </View>
   );
@@ -176,7 +224,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 55,
+    height: 50,
     borderColor: '#eee',
     borderWidth: 2,
     borderRadius: 8,
@@ -185,7 +233,7 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     backgroundColor: '#F37300',
-    padding: 16,
+    padding: 13,
     borderRadius: 5,
     marginLeft: 10,
   },
@@ -251,7 +299,7 @@ const styles = StyleSheet.create({
   },
   orderItem: {
     flexDirection: 'row',
-    padding: 25,
+    padding: 30,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
@@ -301,19 +349,9 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     left: 10
   },
-  overlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: '100%',
-  },
   menuCard: {
     position: 'absolute',
-    width: '65%',
+    width: '60%',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
@@ -331,6 +369,64 @@ const styles = StyleSheet.create({
   menuItemText: {
     marginLeft: 10,
     fontSize: 14,
+  },
+  deleteModal: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    width: '90%',
+  },
+  deleteModalText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontFamily: "Semibold"
+  },
+  deleteModalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  cancelButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 45,
+    borderRadius: 5,
+    backgroundColor: '#ddd',
+  },
+  cancelButtonText: {
+    fontSize: 16,
+  },
+  deleteButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 45,
+    borderRadius: 5,
+    backgroundColor: '#ff8c00',
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  overlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  subtext:{
+    marginBottom: 20,
+    color: "#666"
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
   },
 });
 

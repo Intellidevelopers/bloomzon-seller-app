@@ -31,7 +31,7 @@ const Success: React.FC = () => {
             Your password has been successfully reset. You can now log in with your new password.
         </Text>
         
-      <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/LoginScreen')}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/(tabs)')}>
         <Text style={styles.loginButtonText}>Back to Login</Text>
       </TouchableOpacity>
     </SafeAreaView>

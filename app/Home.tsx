@@ -323,7 +323,7 @@ const Home: React.FC = () => {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 20 }}>
-            <TouchableOpacity style={styles.tabsContainer} onPress={() => router.push('/ManageOrders')}>
+            <TouchableOpacity style={styles.tabsContainer} onPress={() => router.push('/Orders')}>
               <View style={styles.tabContent}>
                 <Ionicons name='save' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
                 <Text style={styles.tabText}>Manage Orders</Text>

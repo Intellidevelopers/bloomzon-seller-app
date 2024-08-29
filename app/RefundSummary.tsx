@@ -19,11 +19,13 @@ const RefundSummary = () => {
 
     return (
         <View style={styles.container}>
-            <View style={{flexDirection: "row", alignItems: "center", gap: 65, marginBottom: 10, marginTop: -10}}>
+            <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 10, marginTop: -15}}>
                 <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
                     <AntDesign name='arrowleft' size={22} />
                 </TouchableOpacity>
                 <Text style={{fontSize: 18, fontFamily: "Semibold", top: 25}}>Refund Summary</Text>
+                <TouchableOpacity style={styles.backButton2}>
+                </TouchableOpacity>
             </View>
             <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles.refundSummaryContainer}>
@@ -240,6 +242,14 @@ const styles = StyleSheet.create({
         marginTop: 4,
         fontWeight: "700"
     },
+    backButton2: {
+        marginBottom: 10,
+        marginTop: 60,
+        padding: 16,
+        width: 55,
+        alignItems: "center",
+        borderRadius: 100,
+      },
 });
 
 export default RefundSummary;

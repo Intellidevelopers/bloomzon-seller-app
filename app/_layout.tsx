@@ -43,8 +43,8 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/Welcome'); // Navigate to the main content after the splash screen
-    }
+      router.replace('Welcome'); // Navigate to the main content after the splash screen
+    } 
   }, [loaded]);
 
   if (!loaded) {
@@ -79,7 +79,7 @@ function RootLayoutNav() {
         <Stack.Screen name="ProductDescription" options={{ headerShown: false }} />
         <Stack.Screen name="Keywords" options={{ headerShown: false }} />
         <Stack.Screen name="UploadSuccess" options={{ headerShown: false }} />
-        <Stack.Screen name="ManageOrders" options={{ headerShown: false }} />
+        <Stack.Screen name="Orders" options={{ headerShown: false }} />
         <Stack.Screen name="Inventory" options={{ headerShown: false }} />
         <Stack.Screen name="Filter" options={{ headerShown: false }} />
         <Stack.Screen name="Returns" options={{ headerShown: false }} />
@@ -97,6 +97,17 @@ function RootLayoutNav() {
         <Stack.Screen name="Request" options={{ headerShown: false }} />
         <Stack.Screen name="Summary" options={{ headerShown: false }} />
         <Stack.Screen name="SuccessComponent" options={{ headerShown: false }} />
+        <Stack.Screen name="SettingScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="DealsScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="DealsDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="CreateDeal" options={{ headerShown: false }} />
+        <Stack.Screen name="Coupon" options={{ headerShown: false }} />
+        <Stack.Screen name="CreateCoupon" options={{ headerShown: false }} />
+        <Stack.Screen name="Coupons" options={{ headerShown: false }} />
+        <Stack.Screen name="CouponDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="GrowthOpportunity" options={{ headerShown: false }} />
+        <Stack.Screen name="RegisterAsBloomzon" options={{ headerShown: false }} />
+        <Stack.Screen name="BloomzonShip" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

@@ -22,11 +22,13 @@ const ProductDescription = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 55, marginTop: -30 }}>
+      <View style={{ flexDirection: "row", alignItems: "center",justifyContent: "space-between", marginTop: -30 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Product Description</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.progressContainer}>
@@ -186,6 +188,15 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     fontSize: 18,
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

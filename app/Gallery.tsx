@@ -60,11 +60,13 @@ const Gallery = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 100, marginTop: -35 }}>
+      <View style={{ flexDirection: "row", alignItems: "center",justifyContent: "space-between", marginTop: -35 }}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold",top: 25 }}>Gallery</Text>
+        <TouchableOpacity style={styles.backButton2}>
+      </TouchableOpacity>
       </View>
       <View style={styles.progressContainer}>
         <View style={styles.progressItem}>
@@ -269,6 +271,15 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#007AFF',
     fontSize: 14,
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+    left: -10
   },
 });
 

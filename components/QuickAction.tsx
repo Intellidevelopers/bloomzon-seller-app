@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import { FontAwesome6, Ionicons, Entypo, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome6, Ionicons, Entypo, MaterialCommunityIcons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -11,19 +11,23 @@ const QuickActions = () => {
   // Define your quick action items with icon components
   const actions = [
     { label: 'Add a Product', icon: <FontAwesome6 name='folder-plus' size={30} color='#00D1A3' />, route: '/AddProduct' },
-    { label: 'Manage Orders', icon: <Ionicons name='save' size={30} color='#00D1A3' />, route: '/ManageOrders' },
+    { label: 'Manage Orders', icon: <Ionicons name='save' size={30} color='#00D1A3' />, route: '/Orders' },
     { label: 'Manage Returns', icon: <FontAwesome6 name='reply-all' size={30} color='#00D1A3' />, route: '/Returns' },
     { label: 'Manage Inventory', icon: <FontAwesome6 name='store' size={30} color='#00D1A3' />, route: '/Inventory' },
-    { label: 'Payments', icon: <FontAwesome6 name='credit-card' size={30} color='#00D1A3' />, route: '/Payments' },
+    { label: 'Payments', icon: <FontAwesome6 name='credit-card' size={30} color='#00D1A3' />, route: '/(tabs)/wallet' },
     { label: 'Communications', icon: <Entypo name='chat' size={30} color='#00D1A3' />, notificationCount: 2, route: 'Communications' },
     { label: 'Business Analysis', icon: <FontAwesome6 name='chart-simple' size={30} color='#00D1A3' />, route: '/BusinessAnalysis' },
     { label: 'Advertisement', icon: <FontAwesome6 name='chart-simple' size={30} color='#00D1A3' />, route: '/Advertisement' },
     { label: 'Account Health', icon: <MaterialCommunityIcons name='sine-wave' size={30} color='#00D1A3' />, route: '/AccountHealth' },
-    { label: 'Coupons', icon: <Ionicons name='pricetags' size={30} color='#00D1A3' />, route: '/Coupons' },
+    { label: 'Coupons ', icon: <Ionicons name='pricetags' size={30} color='#00D1A3' />, route: '/Coupon' },
     { label: 'Customer Voice', icon: <MaterialCommunityIcons name='account-voice' size={30} color='#00D1A3' />, route: '/CustomerVoice' },
     { label: 'Subscribe & Save', icon: <FontAwesome5 name='sync-alt' size={30} color='#00D1A3' />, route: '/SubscribeSave' },
     { label: 'Feedback', icon: <MaterialCommunityIcons name='message-alert' size={30} color='#00D1A3' />, route: '/Feedback' },
-    { label: 'Growth Opportunity', icon: <FontAwesome6 name='chart-line' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
+    { label: 'Growth Opportunity', icon: <FontAwesome6 name='chart-line' size={30} color='#00D1A3' />, route: 'GrowthOpportunity' },
+    { label: 'Bloomzon Live', description: 'Upload your live video', icon: <MaterialIcons name='live-tv' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
+    { label: 'Bloomzon Reels', description: 'Add reels video', icon: <MaterialCommunityIcons name='movie' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
+    { label: 'Bloomzon TV', description: 'Contact bloomzon to appear on realtime sales on our live Tv.', icon: <FontAwesome6 name='tv' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
+    { label: 'Create my seller category', description: 'For Manufacturer or wholesaler account only', icon: <FontAwesome5 name='th-list' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
   ];
 
   return (
@@ -36,7 +40,8 @@ const QuickActions = () => {
         >
           <View style={styles.tabContent}>
             <View style={{ marginBottom: 10 }}>{action.icon}</View>
-            <Text style={styles.tabText}>{action.label}</Text>
+            <Text style={styles.label}>{action.label}</Text>
+            <Text style={styles.tabText}>{action.description}</Text>
             {action.notificationCount ? (
               <View style={styles.notification}>
                 <Text style={styles.notificationText}>{action.notificationCount}</Text>
@@ -71,6 +76,13 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontFamily: "Regular",
+    color: "#333",
+    textAlign: "center",
+    width: 150,
+    fontSize: 13,
+  },
+  label: {
+    fontFamily: "Semibold",
     color: "#333",
     textAlign: "center",
     width: 150,

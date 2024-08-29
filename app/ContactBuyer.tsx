@@ -14,6 +14,8 @@ const ContactBuyer = () => {
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Contact Buyer</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
       <View style={styles.body}>
         <Text style={styles.subtitle}>Send message to Imobighe</Text>
@@ -85,10 +87,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 30,
     paddingBottom: 10,
-    gap: 30,
-    marginBottom: 20
+    marginBottom: 20,
+    justifyContent: "space-between"
   },
   backButton: {
     backgroundColor: "#eee",
@@ -103,6 +104,14 @@ const styles = StyleSheet.create({
     fontFamily: "Semibold",
     marginLeft: 20,
     color: '#000',
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
   },
 });
 

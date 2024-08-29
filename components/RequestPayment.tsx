@@ -33,11 +33,13 @@ const RequestPayment: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -35, gap: 80, marginBottom: 20 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, justifyContent: "space-between"}}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name='arrowleft' size={22} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Request Payment</Text>
+        <TouchableOpacity style={styles.backButton2}>
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.withdrawalText}>Withdrawal Amount</Text>
@@ -128,6 +130,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 60,
     backgroundColor: "#eee",
+    padding: 16,
+    width: 55,
+    alignItems: "center",
+    borderRadius: 100,
+  },
+  backButton2: {
+    marginBottom: 10,
+    marginTop: 60,
     padding: 16,
     width: 55,
     alignItems: "center",

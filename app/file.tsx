@@ -223,7 +223,7 @@ const index = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
                   <ScrollView horizontal style={styles.cardContainer} showsHorizontalScrollIndicator={false} scrollEnabled={true}>
-                  <Pressable onPress={() => router.push('/ManageOrders')}>
+                  <Pressable onPress={() => router.push('/Orders')}>
                     <View style={styles.card}>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                     <Text style={styles.cardTitle}>Total Orders</Text>
@@ -387,7 +387,7 @@ const index = () => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.tabsContainer} onPress={() => router.push('/ManageOrders')}>
+            <TouchableOpacity style={styles.tabsContainer} onPress={() => router.push('/Orders')}>
               <View style={styles.tabContent}>
                 <Ionicons name='save' size={30} color='#00D1A3' style={{ marginBottom: 10 }} />
                 <Text style={styles.tabText}>Manage Orders</Text>
