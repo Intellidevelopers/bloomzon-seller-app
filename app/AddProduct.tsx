@@ -1,51 +1,71 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, TextInput, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
-import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { MaterialIcons, Ionicons, AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
-
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const AddProduct = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedField, setSelectedField] = useState('');
+  const [selectedField, setSelectedField] = useState("");
   const [modalData, setModalData] = useState<string[]>([]);
-  const [selectedValues, setSelectedValues] = useState({
-    category: '',
-    subcategory: '',
-    type: '',
-    select: '',
-    brand: '',
-    bookingDate: ''
+
+  const [data, setData] = useState({
+    category: "",
+    sub_category: "",
+    closure_type: "",
   });
+
+  const [selectedValues, setSelectedValues] = useState({
+    category: "",
+    subcategory: "",
+    type: "",
+    select: "",
+    brand: "",
+    bookingDate: "",
+  });
+
+  console.log(selectedValues);
 
   const openModal = (field: string) => {
     let data: string[] = [];
     switch (field) {
-      case 'Product category':
-        data = ['Electronics', 'Clothing', 'Home Appliances'];
+      case "Product category":
+        data = ["Electronics", "Clothing", "Home Appliances"];
         break;
-      case 'Product sub-category':
-        data = ['Mobile Phones', 'Laptops', 'Tablets'];
+      case "Product sub-category":
+        data = ["Mobile Phones", "Laptops", "Tablets"];
         break;
-      case 'Closure type':
-        data = ['New', 'Used', 'Refurbished'];
+      case "Closure type":
+        data = ["New", "Used", "Refurbished"];
         break;
-      case 'Select':
-        data = ['Option 1', 'Option 2', 'Option 3'];
+      case "Select":
+        data = ["Option 1", "Option 2", "Option 3"];
         break;
-        case 'Outer material type':
-        data = ['Material 1', 'Material 2', 'Material 3'];
+      case "Outer material type":
+        data = ["Material 1", "Material 2", "Material 3"];
         break;
-      case 'Style':
-        data = ['Style 1', 'Style 2', 'Style 3'];
+      case "Style":
+        data = ["Style 1", "Style 2", "Style 3"];
         break;
-      case 'Gender':
-        data = ['Male', 'Female', 'Rather not to say'];
+      case "Gender":
+        data = ["Male", "Female", "Rather not to say"];
         break;
-      case 'Strap type':
-        data = ['Strap type 1', 'Strap type 2', 'Strap type 3'];
+      case "Strap type":
+        data = ["Strap type 1", "Strap type 2", "Strap type 3"];
         break;
       default:
         break;
@@ -57,11 +77,14 @@ const AddProduct = () => {
 
   const closeModal = () => {
     setModalVisible(false);
-    setSelectedField('');
+    setSelectedField("");
   };
 
   const selectItem = (item: string) => {
-    setSelectedValues(prevValues => ({ ...prevValues, [selectedField.toLowerCase() as keyof typeof selectedValues]: item }));
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [selectedField.toLowerCase() as keyof typeof selectedValues]: item,
+    }));
     closeModal();
   };
 
@@ -72,7 +95,10 @@ const AddProduct = () => {
   );
 
   const toggleRememberMe = () => {
-    setSelectedValues(prevValues => ({ ...prevValues, brand: prevValues.brand ? '' : 'No Brand' }));
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      brand: prevValues.brand ? "" : "No Brand",
+    }));
   };
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -84,103 +110,132 @@ const AddProduct = () => {
   };
 
   const handleConfirm = (date: Date) => {
-    setSelectedValues(prevValues => ({ ...prevValues, bookingDate: date.toLocaleDateString() }));
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      bookingDate: date.toLocaleDateString(),
+    }));
     hideDatePicker();
   };
 
   const generateUniqueId = () => {
-    const prefix = 'BL';
+    const prefix = "BL";
     const randomPart = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates a random string of length 8
     return `${prefix}${randomPart}`;
   };
-  
+
   const [productId, setProductId] = useState(generateUniqueId());
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginTop: -30, justifyContent: "space-between"}}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <AntDesign name='arrowleft' size={22} />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: -30,
+          justifyContent: "space-between",
+        }}
+      >
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <AntDesign name="arrowleft" size={22} />
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Product Details</Text>
+        <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>
+          Product Details
+        </Text>
         <Text style={styles.backButton2}></Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.progressContainer}>
-        <View style={styles.progressItem}>
-          <View style={ styles.activeProgressBar} />
-          <Text style={styles.progressLabel}>Info</Text>
-        </View>
-        <View style={styles.progressItem}>
-          <View style={ styles.inactiveProgressBar} />
-          <Text style={styles.progressLabel}>Variations</Text>
-        </View>
-        <View style={styles.progressItem}>
-          <View style={ styles.inactiveProgressBar} />
-          <Text style={styles.progressLabel}>Offers</Text>
-        </View>
-        <View style={styles.progressItem}>
-          <View style={ styles.inactiveProgressBar} />
-          <Text style={styles.progressLabel}>Gallery</Text>
-        </View>
-        <View style={styles.progressItem}>
-          <View style={ styles.inactiveProgressBar} />
-          <Text style={styles.progressLabel}>Description</Text>
-        </View>
-        <View style={styles.progressItem}>
-          <View style={ styles.inactiveProgressBar} />
-          <Text style={styles.progressLabel}>Keywords</Text>
-        </View>
-      </View>
-
-      <View style={{left: 16, marginBottom: 20}}>
-        <Text style={{fontFamily: "Semibold", fontSize: 18}}>
-          Product Details
-        </Text>
-        <Text style={{fontFamily: "Regular", fontSize: 14, color: "#666"}}>Provide essential details to list your 
-          product Accurate information helps 
-          customers find and purchase your items
-        </Text>
-      </View>
-
-        {['Product category', 'Product sub-category', 'Closure type'].map((field) => (
-          <View key={field} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
-              {field}
-            </Text>
-
-            <TouchableOpacity onPress={() => openModal(field)}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  borderWidth: 2,
-                  borderColor: '#eee',
-                  padding: 10,
-                  width: '91%',
-                  alignSelf: 'center',
-                  borderRadius: 7,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text style={{ fontFamily: 'Regular', color: '#666', fontSize: 15 }}>
-                  {selectedValues[field.toLowerCase() as keyof typeof selectedValues] || `Select ${field.toLowerCase()}`}
-                </Text>
-                <MaterialIcons name="keyboard-arrow-down" color={'#666'} size={30} />
-              </View>
-            </TouchableOpacity>
+        <View style={styles.progressContainer}>
+          <View style={styles.progressItem}>
+            <View style={styles.activeProgressBar} />
+            <Text style={styles.progressLabel}>Info</Text>
           </View>
-        ))}
+          <View style={styles.progressItem}>
+            <View style={styles.inactiveProgressBar} />
+            <Text style={styles.progressLabel}>Variations</Text>
+          </View>
+          <View style={styles.progressItem}>
+            <View style={styles.inactiveProgressBar} />
+            <Text style={styles.progressLabel}>Offers</Text>
+          </View>
+          <View style={styles.progressItem}>
+            <View style={styles.inactiveProgressBar} />
+            <Text style={styles.progressLabel}>Gallery</Text>
+          </View>
+          <View style={styles.progressItem}>
+            <View style={styles.inactiveProgressBar} />
+            <Text style={styles.progressLabel}>Description</Text>
+          </View>
+          <View style={styles.progressItem}>
+            <View style={styles.inactiveProgressBar} />
+            <Text style={styles.progressLabel}>Keywords</Text>
+          </View>
+        </View>
+
+        <View style={{ left: 16, marginBottom: 20 }}>
+          <Text style={{ fontFamily: "Semibold", fontSize: 18 }}>
+            Product Details
+          </Text>
+          <Text style={{ fontFamily: "Regular", fontSize: 14, color: "#666" }}>
+            Provide essential details to list your product Accurate information
+            helps customers find and purchase your items
+          </Text>
+        </View>
+
+        {["Product category", "Product sub-category", "Closure type"].map(
+          (field) => (
+            <View key={field} style={{ marginBottom: 20 }}>
+              <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
+                {field}
+              </Text>
+
+              <TouchableOpacity onPress={() => openModal(field)}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    borderWidth: 2,
+                    borderColor: "#eee",
+                    padding: 10,
+                    width: "91%",
+                    alignSelf: "center",
+                    borderRadius: 7,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Regular",
+                      color: "#666",
+                      fontSize: 15,
+                    }}
+                  >
+                    {selectedValues[
+                      field.toLowerCase() as keyof typeof selectedValues
+                    ] || `Select ${field.toLowerCase()}`}
+                  </Text>
+                  <MaterialIcons
+                    name="keyboard-arrow-down"
+                    color={"#666"}
+                    size={30}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          )
+        )}
 
         <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Product ID
           </Text>
 
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignSelf: 'center',
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignSelf: "center",
               left: 17,
               marginBottom: 10,
             }}
@@ -188,14 +243,14 @@ const AddProduct = () => {
             <TextInput
               style={{
                 borderWidth: 2,
-                width: '50%',
-                alignSelf: 'center',
+                width: "50%",
+                alignSelf: "center",
                 padding: 10,
                 borderRadius: 7,
-                borderColor: '#eee',
+                borderColor: "#eee",
                 left: 13,
                 fontFamily: "Semibold",
-                color: "#666"
+                color: "#666",
               }}
               keyboardType="default"
               value={productId}
@@ -203,46 +258,61 @@ const AddProduct = () => {
               readOnly
             />
 
-            <TouchableOpacity onPress={() => openModal('Select')}>
+            <TouchableOpacity onPress={() => openModal("Select")}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  flexDirection: "row",
+                  alignItems: "center",
                   borderWidth: 2,
-                  borderColor: '#eee',
+                  borderColor: "#eee",
                   padding: 9,
-                  width: '60%',
-                  alignSelf: 'center',
+                  width: "60%",
+                  alignSelf: "center",
                   borderRadius: 7,
-                  justifyContent: 'space-between',
+                  justifyContent: "space-between",
                 }}
               >
-                <Text style={{ fontFamily: 'Regular', color: '#666', fontSize: 15 }}>
-                  {selectedValues.select || 'Select'}
+                <Text
+                  style={{ fontFamily: "Regular", color: "#666", fontSize: 15 }}
+                >
+                  {selectedValues.select || "Select"}
                 </Text>
-                <MaterialIcons name="keyboard-arrow-down" color={'#666'} size={30} />
+                <MaterialIcons
+                  name="keyboard-arrow-down"
+                  color={"#666"}
+                  size={30}
+                />
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', left: 15 }}>
-            <Ionicons name="alert-circle-outline" color={'#666'} size={25} style={{ marginRight: 5 }} />
-            <Text style={{ fontFamily: 'Regular', color: '#666' }}>This product doesn't have a brand name</Text>
+          <View
+            style={{ flexDirection: "row", alignItems: "center", left: 15 }}
+          >
+            <Ionicons
+              name="alert-circle-outline"
+              color={"#666"}
+              size={25}
+              style={{ marginRight: 5 }}
+            />
+            <Text style={{ fontFamily: "Regular", color: "#666" }}>
+              This product doesn't have a brand name
+            </Text>
           </View>
         </View>
 
         <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Product name
           </Text>
 
           <TextInput
             style={{
               borderWidth: 2,
-              width: '90%',
-              alignSelf: 'center',
+              width: "90%",
+              alignSelf: "center",
               padding: 10,
               borderRadius: 7,
-              borderColor: '#eee',
+              borderColor: "#eee",
               left: -4,
             }}
             placeholder="Enter product name"
@@ -251,46 +321,65 @@ const AddProduct = () => {
         </View>
 
         <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Brand name
           </Text>
 
           <TextInput
             style={{
               borderWidth: 2,
-              width: '90%',
-              alignSelf: 'center',
+              width: "90%",
+              alignSelf: "center",
               padding: 10,
               borderRadius: 7,
-              borderColor: '#eee',
+              borderColor: "#eee",
               left: -4,
             }}
             placeholder="Enter brand name"
             keyboardType="default"
           />
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', left: 15, marginBottom: 10 }}>
-          <TouchableOpacity style={styles.checkboxContainer} onPress={toggleRememberMe}>
-            <View style={[styles.checkbox, selectedValues.brand ? styles.checkboxChecked : null]}>
-              {selectedValues.brand && <AntDesign name="check" size={16} color="#fff" />}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            left: 15,
+            marginBottom: 10,
+          }}
+        >
+          <TouchableOpacity
+            style={styles.checkboxContainer}
+            onPress={toggleRememberMe}
+          >
+            <View
+              style={[
+                styles.checkbox,
+                selectedValues.brand ? styles.checkboxChecked : null,
+              ]}
+            >
+              {selectedValues.brand && (
+                <AntDesign name="check" size={16} color="#fff" />
+              )}
             </View>
-            <Text style={styles.rememberMe}>This product doesn't have a brand name</Text>
+            <Text style={styles.rememberMe}>
+              This product doesn't have a brand name
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Model number
           </Text>
 
           <TextInput
             style={{
               borderWidth: 2,
-              width: '90%',
-              alignSelf: 'center',
+              width: "90%",
+              alignSelf: "center",
               padding: 10,
               borderRadius: 7,
-              borderColor: '#eee',
+              borderColor: "#eee",
               left: -4,
             }}
             placeholder="Enter model number"
@@ -298,47 +387,55 @@ const AddProduct = () => {
           />
         </View>
 
-        {['Outer material type', 'Style', 'Gender'].map((field) => (
+        {["Outer material type", "Style", "Gender"].map((field) => (
           <View key={field} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+            <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
               {field}
             </Text>
 
             <TouchableOpacity onPress={() => openModal(field)}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  flexDirection: "row",
+                  alignItems: "center",
                   borderWidth: 2,
-                  borderColor: '#eee',
+                  borderColor: "#eee",
                   padding: 10,
-                  width: '91%',
-                  alignSelf: 'center',
+                  width: "91%",
+                  alignSelf: "center",
                   borderRadius: 7,
-                  justifyContent: 'space-between',
+                  justifyContent: "space-between",
                 }}
               >
-                <Text style={{ fontFamily: 'Regular', color: '#666', fontSize: 15 }}>
-                  {selectedValues[field.toLowerCase() as keyof typeof selectedValues] || `Select ${field.toLowerCase()}`}
+                <Text
+                  style={{ fontFamily: "Regular", color: "#666", fontSize: 15 }}
+                >
+                  {selectedValues[
+                    field.toLowerCase() as keyof typeof selectedValues
+                  ] || `Select ${field.toLowerCase()}`}
                 </Text>
-                <MaterialIcons name="keyboard-arrow-down" color={'#666'} size={30} />
+                <MaterialIcons
+                  name="keyboard-arrow-down"
+                  color={"#666"}
+                  size={30}
+                />
               </View>
             </TouchableOpacity>
           </View>
         ))}
-         <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Number of items
           </Text>
 
           <TextInput
             style={{
               borderWidth: 2,
-              width: '90%',
-              alignSelf: 'center',
+              width: "90%",
+              alignSelf: "center",
               padding: 10,
               borderRadius: 7,
-              borderColor: '#eee',
+              borderColor: "#eee",
               left: -4,
             }}
             placeholder="Enter number of items"
@@ -346,58 +443,72 @@ const AddProduct = () => {
           />
         </View>
 
-        {['Strap type'].map((field) => (
+        {["Strap type"].map((field) => (
           <View key={field} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+            <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
               {field}
             </Text>
 
             <TouchableOpacity onPress={() => openModal(field)}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  flexDirection: "row",
+                  alignItems: "center",
                   borderWidth: 2,
-                  borderColor: '#eee',
+                  borderColor: "#eee",
                   padding: 10,
-                  width: '91%',
-                  alignSelf: 'center',
+                  width: "91%",
+                  alignSelf: "center",
                   borderRadius: 7,
-                  justifyContent: 'space-between',
+                  justifyContent: "space-between",
                 }}
               >
-                <Text style={{ fontFamily: 'Regular', color: '#666', fontSize: 15 }}>
-                  {selectedValues[field.toLowerCase() as keyof typeof selectedValues] || `Select ${field.toLowerCase()}`}
+                <Text
+                  style={{ fontFamily: "Regular", color: "#666", fontSize: 15 }}
+                >
+                  {selectedValues[
+                    field.toLowerCase() as keyof typeof selectedValues
+                  ] || `Select ${field.toLowerCase()}`}
                 </Text>
-                <MaterialIcons name="keyboard-arrow-down" color={'#666'} size={30} />
+                <MaterialIcons
+                  name="keyboard-arrow-down"
+                  color={"#666"}
+                  size={30}
+                />
               </View>
             </TouchableOpacity>
           </View>
         ))}
 
-<View style={{ marginBottom: 20 }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Medium', left: 15 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ fontSize: 16, fontFamily: "Medium", left: 15 }}>
             Booking Date
           </Text>
 
           <TouchableOpacity onPress={showDatePicker}>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 borderWidth: 2,
-                borderColor: '#eee',
+                borderColor: "#eee",
                 padding: 10,
-                width: '91%',
-                alignSelf: 'center',
+                width: "91%",
+                alignSelf: "center",
                 borderRadius: 7,
-                justifyContent: 'space-between',
+                justifyContent: "space-between",
               }}
             >
-              <Text style={{ fontFamily: 'Regular', color: '#666', fontSize: 15 }}>
-                {selectedValues.bookingDate || 'Select booking date'}
+              <Text
+                style={{ fontFamily: "Regular", color: "#666", fontSize: 15 }}
+              >
+                {selectedValues.bookingDate || "Select booking date"}
               </Text>
-              <MaterialIcons name="keyboard-arrow-down" color={'#666'} size={30} />
+              <MaterialIcons
+                name="keyboard-arrow-down"
+                color={"#666"}
+                size={30}
+              />
             </View>
           </TouchableOpacity>
 
@@ -408,22 +519,25 @@ const AddProduct = () => {
             onCancel={hideDatePicker}
           />
         </View>
-        <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/VariationsScreen')}>
-        <Text style={styles.loginButtonText}>Save & Continue</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => router.push("/VariationsScreen")}
+        >
+          <Text style={styles.loginButtonText}>Save & Continue</Text>
+        </TouchableOpacity>
       </ScrollView>
 
       <Modal visible={modalVisible} transparent={true} animationType="fade">
-      <TouchableWithoutFeedback onPress={closeModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <FlatList
-              data={modalData}
-              renderItem={renderModalItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
+        <TouchableWithoutFeedback onPress={closeModal}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <FlatList
+                data={modalData}
+                renderItem={renderModalItem}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
           </View>
-        </View>
         </TouchableWithoutFeedback>
       </Modal>
     </View>
@@ -434,7 +548,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,
   },
   backButton: {
     marginBottom: 10,
@@ -444,103 +558,102 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: 10
+    left: 10,
   },
   progressContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 10,
     marginVertical: 10,
-    marginBottom: 40
+    marginBottom: 40,
   },
   progressItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   activeProgressBar: {
     width: 50,
     height: 7,
-    backgroundColor: '#00D1A3',
-    borderRadius: 10
-
+    backgroundColor: "#00D1A3",
+    borderRadius: 10,
   },
   inactiveProgressBar: {
     width: 50,
     height: 7,
-    backgroundColor: '#ccc',
-    borderRadius: 10
+    backgroundColor: "#ccc",
+    borderRadius: 10,
   },
   progressLabel: {
     marginTop: 5,
     fontSize: 10,
-    color: '#555',
+    color: "#555",
   },
 
   backButtonText: {
     fontSize: 18,
   },
   checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
   },
   checkbox: {
     width: 20,
     height: 20,
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     marginRight: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
   },
   checkboxChecked: {
-    backgroundColor: '#FF8C00',
+    backgroundColor: "#FF8C00",
   },
   rememberMe: {
     fontSize: 14,
     fontFamily: "Regular",
-    color: "#666"
+    color: "#666",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    width: '80%',
-    backgroundColor: 'white',
+    width: "80%",
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
   },
   closeButton: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginBottom: 10,
   },
   closeButtonText: {
-    color: 'blue',
+    color: "blue",
   },
   modalItem: {
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#ddd",
   },
   modalItemText: {
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: '#FF8C00',
+    backgroundColor: "#FF8C00",
     paddingVertical: 13,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
-    width: '92%',
-    alignSelf: "center"
+    width: "92%",
+    alignSelf: "center",
   },
   loginButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontFamily: 'Regular',
+    fontFamily: "Regular",
   },
 
   backButton2: {
