@@ -45,6 +45,7 @@ const LoginScreen: React.FC = () => {
         router.push("/(tabs)"); // Replace with your home screen route
       }
     } catch (err: any) {
+      setLoading(false);
       Alert.alert(err.message);
     }
   }

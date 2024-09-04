@@ -30,7 +30,9 @@ export default function RootLayout() {
         );
         router.push("/(tabs)");
       } catch (err) {
-        router.replace("welcome");
+        if (err) {
+          router.replace("Welcome");
+        }
       }
     };
 
