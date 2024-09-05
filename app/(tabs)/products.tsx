@@ -96,7 +96,10 @@ const Products: React.FC = () => {
   };
   const renderOrderItem = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Image source={item?.images} style={styles.productImage} />
+      <Image
+        source={require("../../assets/products/img12.jpg")}
+        style={styles.productImage}
+      />
       <View style={styles.orderTextContainer}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.orderTitle}>{item?.prod_name}</Text>
@@ -104,7 +107,7 @@ const Products: React.FC = () => {
             <Feather name="more-horizontal" size={22} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.orderPrice}>${item?.price}</Text>
+        <Text style={styles.orderPrice}>${item?.max_retail_price}</Text>
         <Text style={styles.orderDetails}>
           <Text style={{ fontWeight: "700", color: "#000" }}>SKU:</Text>{" "}
           {item.seller_sku}
@@ -118,7 +121,7 @@ const Products: React.FC = () => {
           ]}
         >
           <Text style={{ fontWeight: "700", color: "#000", gap: 10 }}>
-            Status:
+            Status: Active
           </Text>{" "}
           {item.status}
         </Text>
@@ -219,7 +222,7 @@ const Products: React.FC = () => {
         </View>
 
         <FlatList
-          data={filteredOrders}
+          data={orders}
           renderItem={renderOrderItem}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}

@@ -30,11 +30,7 @@ export default function RootLayout() {
           "https://bloomzon-backend-1-q2ud.onrender.com/api/profile"
         );
         router.push("/(tabs)");
-      } catch (err) {
-        if (err) {
-          router.push("Welcome");
-        }
-      }
+      } catch (err) {}
     };
 
     profile();

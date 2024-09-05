@@ -13,12 +13,16 @@ import {
   SafeAreaView,
   FlatList,
   Dimensions,
+  Alert,
 } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Keywords = () => {
   const { prodData, images } = useContext(ProductsContext);
+
+  const [loading, setLoading] = useState(false);
 
   const [keywords, setKeywords] = useState<string[]>([]);
   const [newKeyword, setNewKeyword] = useState("");
@@ -34,13 +38,14 @@ const Keywords = () => {
     setKeywords(keywords.filter((k) => k !== keyword));
   };
 
+  console.log(Object.assign({}, images));
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         "https://bloomzon-backend-1-q2ud.onrender.com/api/product",
         {
           ...prodData,
-          images: images,
           keywords: newKeyword,
         },
         {
@@ -50,9 +55,13 @@ const Keywords = () => {
         }
       );
 
-      console.log(res.data);
-      // router.push("/UploadSuccess");
-    } catch (err) {
+      setLoading(false);
+      if (res.data.message == "Product Added Successfully") {
+        router.push("/UploadSuccess");
+      }
+    } catch (err: any) {
+      setLoading(false);
+      Alert.alert(err.message);
       console.log(err, "HEY, IM AN ERROR");
     }
   };
@@ -148,9 +157,14 @@ const Keywords = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.keywordList}
         />
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#FF8C00" />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

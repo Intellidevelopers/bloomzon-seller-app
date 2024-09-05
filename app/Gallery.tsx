@@ -38,14 +38,7 @@ const Gallery = () => {
     null,
     null,
   ]);
-  const [image, setImage] = useState<(any | null)[]>([
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const [image, setImage] = useState<(any | null)[]>([]);
   const [isVideo, setIsVideo] = useState<boolean[]>([
     false,
     false,
@@ -68,7 +61,11 @@ const Gallery = () => {
       newMedia[index] = result.assets[0].uri;
 
       const newImage = [...image];
-      newImage[index] = result.assets[0];
+      newImage[index] = {
+        uri: result.assets[0].uri,
+        type: result.assets[0].type,
+        name: result.assets[0].fileName,
+      };
 
       const newIsVideo = [...isVideo];
       newIsVideo[index] = result.assets[0].type === "video";
@@ -100,7 +97,7 @@ const Gallery = () => {
 
   // HANDLE SUBMISSION
   const handleSubmit = () => {
-    setImages(image);
+    setImages(image.filter((item) => item !== undefined));
     router.push("/ProductDescription");
   };
 
