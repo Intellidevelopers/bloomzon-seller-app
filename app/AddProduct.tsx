@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -15,21 +15,25 @@ import {
 import { MaterialIcons, Ionicons, AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { ProductsContext } from "@/constants/ProductsData";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const AddProduct = () => {
+  const { prodData, setProdData } = useContext(ProductsContext);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedField, setSelectedField] = useState("");
   const [modalData, setModalData] = useState<string[]>([]);
+  const [id, setId] = useState("");
+  const [BrandName, setBrandName] = useState("");
+  const [newdate, setDate] = useState(new Date());
+  const [item, setItem] = useState("");
+  const [modNumer, setModNumber] = useState("");
+  const [prodName, setProdName] = useState("");
+  const [data, setData] = useState<any>("");
 
-  const [data, setData] = useState({
-    category: "",
-    sub_category: "",
-    closure_type: "",
-  });
-
-  const [selectedValues, setSelectedValues] = useState({
+  const [selectedValues, setSelectedValues] = useState<any>({
     category: "",
     subcategory: "",
     type: "",
@@ -38,7 +42,49 @@ const AddProduct = () => {
     bookingDate: "",
   });
 
-  console.log(selectedValues);
+  // GET THE VALUES
+
+  useEffect(() => {
+    if (Object.keys(selectedValues).includes("product category")) {
+      setData({ ...data, category: selectedValues["product category"] });
+    }
+    if (Object.keys(selectedValues).includes("product sub-category")) {
+      setData({
+        ...data,
+        sub_category: selectedValues["product sub-category"],
+      });
+    }
+    if (Object.keys(selectedValues).includes("closure type")) {
+      setData({
+        ...data,
+        closure_type: selectedValues["closure type"],
+      });
+    }
+    if (Object.keys(selectedValues).includes("gender")) {
+      setData({
+        ...data,
+        gender: selectedValues["gender"],
+      });
+    }
+    if (Object.keys(selectedValues).includes("outer material type")) {
+      setData({
+        ...data,
+        outer_material: selectedValues["outer material type"],
+      });
+    }
+    if (Object.keys(selectedValues).includes("style")) {
+      setData({
+        ...data,
+        style: selectedValues["style"],
+      });
+    }
+    if (Object.keys(selectedValues).includes("strap type")) {
+      setData({
+        ...data,
+        strap_type: selectedValues["strap type"],
+      });
+    }
+  }, [selectedValues]);
 
   const openModal = (field: string) => {
     let data: string[] = [];
@@ -81,7 +127,7 @@ const AddProduct = () => {
   };
 
   const selectItem = (item: string) => {
-    setSelectedValues((prevValues) => ({
+    setSelectedValues((prevValues: any) => ({
       ...prevValues,
       [selectedField.toLowerCase() as keyof typeof selectedValues]: item,
     }));
@@ -95,7 +141,7 @@ const AddProduct = () => {
   );
 
   const toggleRememberMe = () => {
-    setSelectedValues((prevValues) => ({
+    setSelectedValues((prevValues: any) => ({
       ...prevValues,
       brand: prevValues.brand ? "" : "No Brand",
     }));
@@ -110,10 +156,11 @@ const AddProduct = () => {
   };
 
   const handleConfirm = (date: Date) => {
-    setSelectedValues((prevValues) => ({
+    setSelectedValues((prevValues: any) => ({
       ...prevValues,
       bookingDate: date.toLocaleDateString(),
     }));
+    setDate(date);
     hideDatePicker();
   };
 
@@ -124,6 +171,23 @@ const AddProduct = () => {
   };
 
   const [productId, setProductId] = useState(generateUniqueId());
+
+  // SUBMISSION BUTTON
+
+  const handleSubmit = () => {
+    setProdData({
+      ...data,
+      ...prodData,
+      brand_name: BrandName,
+      booking_date: newdate,
+      num_of_items: item,
+      model_number: modNumer,
+      prod_name: prodName,
+      prod_id: new Date().getTime(),
+    });
+    router.push("/VariationsScreen");
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -254,6 +318,7 @@ const AddProduct = () => {
               }}
               keyboardType="default"
               value={productId}
+              onChangeText={setId}
               editable={false}
               readOnly
             />
@@ -317,6 +382,7 @@ const AddProduct = () => {
             }}
             placeholder="Enter product name"
             keyboardType="default"
+            onChangeText={setProdName}
           />
         </View>
 
@@ -337,6 +403,7 @@ const AddProduct = () => {
             }}
             placeholder="Enter brand name"
             keyboardType="default"
+            onChangeText={setBrandName}
           />
         </View>
         <View
@@ -384,6 +451,7 @@ const AddProduct = () => {
             }}
             placeholder="Enter model number"
             keyboardType="numeric"
+            onChangeText={setModNumber}
           />
         </View>
 
@@ -440,6 +508,7 @@ const AddProduct = () => {
             }}
             placeholder="Enter number of items"
             keyboardType="numeric"
+            onChangeText={setItem}
           />
         </View>
 
@@ -519,10 +588,7 @@ const AddProduct = () => {
             onCancel={hideDatePicker}
           />
         </View>
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={() => router.push("/VariationsScreen")}
-        >
+        <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
           <Text style={styles.loginButtonText}>Save & Continue</Text>
         </TouchableOpacity>
       </ScrollView>

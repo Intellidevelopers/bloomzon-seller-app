@@ -1,17 +1,28 @@
-import { AntDesign } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
+import { ProductsContext } from "@/constants/ProductsData";
+import { AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Dimensions,
+} from "react-native";
 
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ProductDescription = () => {
-  const [description, setDescription] = useState('');
-  const [bulletPoints, setBulletPoints] = useState(['']);
+  const { prodData, setProdData } = useContext(ProductsContext);
+
+  const [description, setDescription] = useState("");
+  const [bulletPoints, setBulletPoints] = useState([""]);
 
   const addBulletPoint = () => {
-    setBulletPoints([...bulletPoints, '']);
+    setBulletPoints([...bulletPoints, ""]);
   };
 
   const updateBulletPoint = (index: number, value: string) => {
@@ -20,17 +31,42 @@ const ProductDescription = () => {
     setBulletPoints(newBulletPoints);
   };
 
+  // HANDLE SUBMISSION
+
+  const handleSubmit = () => {
+    setProdData({
+      ...prodData,
+      prod_desc: description,
+      bullet_point: bulletPoints,
+    });
+    router.push("/Keywords");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center",justifyContent: "space-between", marginTop: -30 }}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <AntDesign name='arrowleft' size={22} />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: -30,
+        }}
+      >
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <AntDesign name="arrowleft" size={22} />
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>Product Description</Text>
-        <TouchableOpacity style={styles.backButton2}>
-        </TouchableOpacity>
+        <Text style={{ fontSize: 18, fontFamily: "Semibold", top: 25 }}>
+          Product Description
+        </Text>
+        <TouchableOpacity style={styles.backButton2}></TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewContent}
+      >
         <View style={styles.progressContainer}>
           <View style={styles.progressItem}>
             <View style={styles.activeProgressBar} />
@@ -57,10 +93,12 @@ const ProductDescription = () => {
             <Text style={styles.progressLabel}>Keywords</Text>
           </View>
         </View>
-        
+
         <Text style={styles.title}>Detailed Description</Text>
         <Text style={styles.subtitle}>
-          Provide clear and concise information about your product. Highlight key features and specifications to assist customers in their purchase decision.
+          Provide clear and concise information about your product. Highlight
+          key features and specifications to assist customers in their purchase
+          decision.
         </Text>
         <Text style={styles.label}>Product description</Text>
         <TextInput
@@ -84,7 +122,7 @@ const ProductDescription = () => {
           <Text style={styles.addMore}>+ Add more</Text>
         </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity style={styles.button} onPress={() => {router.push('/Keywords')}}>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Save & Continue</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -95,7 +133,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,
   },
   scrollViewContent: {
     padding: 15,
@@ -103,49 +141,49 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: 'Semibold',
+    fontFamily: "Semibold",
   },
   subtitle: {
     fontSize: 14,
     marginVertical: 10,
     color: "#666",
-    fontFamily: "Regular"
+    fontFamily: "Regular",
   },
   label: {
     fontSize: 17,
     marginTop: 20,
-    fontFamily: 'Semibold',
+    fontFamily: "Semibold",
   },
   input: {
     borderWidth: 2,
-    borderColor: '#eee',
+    borderColor: "#eee",
     borderRadius: 7,
     padding: 10,
     marginTop: 10,
   },
   textArea: {
     height: 150,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
   addMore: {
-    color: '#00D1A3',
+    color: "#00D1A3",
     marginTop: 10,
     marginBottom: 20,
-    fontSize: 16
+    fontSize: 16,
   },
   button: {
-    backgroundColor: '#FF8C00',
+    backgroundColor: "#FF8C00",
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    position: "absolute",
     bottom: 30,
     left: 15,
     right: 15,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   backButton: {
     marginBottom: 10,
@@ -155,36 +193,36 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: 10
+    left: 10,
   },
   progressContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 10,
     marginVertical: 10,
     marginBottom: 40,
-    width: '105%',
-    alignSelf: "center"
+    width: "105%",
+    alignSelf: "center",
   },
   progressItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   activeProgressBar: {
     width: 50,
     height: 7,
-    backgroundColor: '#00D1A3',
-    borderRadius: 10
+    backgroundColor: "#00D1A3",
+    borderRadius: 10,
   },
   inactiveProgressBar: {
     width: 50,
     height: 7,
-    backgroundColor: '#ccc',
-    borderRadius: 10
+    backgroundColor: "#ccc",
+    borderRadius: 10,
   },
   progressLabel: {
     marginTop: 5,
     fontSize: 10,
-    color: '#555',
+    color: "#555",
   },
   backButtonText: {
     fontSize: 18,
@@ -196,7 +234,7 @@ const styles = StyleSheet.create({
     width: 55,
     alignItems: "center",
     borderRadius: 100,
-    left: -10
+    left: -10,
   },
 });
 
