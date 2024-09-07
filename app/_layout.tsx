@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -23,12 +23,15 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { setUserData } = useContext(ProductsContext);
+
   useEffect(() => {
     const profile = async () => {
       try {
         const res = await axios.get(
           "https://bloomzon-backend-1-q2ud.onrender.com/api/profile"
         );
+        setUserData(res.data);
         router.push("/(tabs)");
       } catch (err) {}
     };
@@ -72,11 +75,19 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const [prodData, setProdData] = useState<any>({});
   const [images, setImages] = useState<any>("");
+  const [userData, setUserData] = useState("");
   const colorScheme = useColorScheme();
 
   return (
     <ProductsContext.Provider
-      value={{ prodData, setProdData, setImages, images }}
+      value={{
+        prodData,
+        setProdData,
+        setImages,
+        images,
+        userData,
+        setUserData,
+      }}
     >
       <ThemeProvider value={DefaultTheme}>
         <Stack initialRouteName="Welcome">

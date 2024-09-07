@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Animated, Dimensions, SafeAreaView, Modal, Image, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign, Entypo, FontAwesome6, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons/';
 import CustomBarChart from '../components/CustomBarChart';
 import { router } from 'expo-router';
+import { ProductsContext } from '@/constants/ProductsData';
 
 const index: React.FC = () => {
+  const { userData } = useContext(ProductsContext);
+
   const navigation = useNavigation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState('Jan');
@@ -77,7 +80,7 @@ const index: React.FC = () => {
              <Text style={{
               marginRight: 10,
               fontFamily: "Semibold"
-              }}>Imobighe</Text>
+            }}>{userData.name }</Text>
               <AntDesign name="down" size={16} color="#000" />
           </TouchableOpacity>
 
