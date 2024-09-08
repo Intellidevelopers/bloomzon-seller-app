@@ -82,7 +82,7 @@ const account = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => router.push("")}
+              onPress={() => router.push("/")}
             >
               <FontAwesome5 name="users" size={24} color="black" />
               <Text style={styles.buttonText}>Followers</Text>

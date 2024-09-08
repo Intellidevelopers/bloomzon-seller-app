@@ -15,6 +15,7 @@ import { useRouter } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { supabase } from "../utils/supabase";
 import axios from "axios";
+import Toast from "react-native-toast-message";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -27,22 +28,34 @@ const Register: React.FC = () => {
   const [successModalVisible, setSuccessModalVisible] = useState(false);
 
   async function signUpWithEmail() {
-    try {
-      setLoading(true);
+    if (email && password && name) {
+      try {
+        setLoading(true);
 
-      const res = await axios.post(
-        "https://bloomzon-backend-1-q2ud.onrender.com/api/auth/signup",
-        {
-          email,
-          password,
-          name,
-        }
-      );
-
-      setSuccessModalVisible(true);
-      setLoading(false);
-    } catch (error: any) {
-      Alert.alert(error.message);
+        const res = await axios.post(
+          "https://bloomzon-backend-1-q2ud.onrender.com/api/auth/signup",
+          {
+            email,
+            password,
+            name,
+          }
+        );
+        setLoading(false);
+        Toast.show({
+          type: "success",
+          text1: "Welcome",
+          text2: "Sign Up Successful",
+        });
+        setSuccessModalVisible(true);
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "All Fields Required",
+        text2: "Please input all fields before signing up",
+      });
     }
   }
 

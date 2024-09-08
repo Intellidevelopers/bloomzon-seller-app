@@ -8,6 +8,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import axios from "axios";
 import { ProductsContext } from "@/constants/ProductsData";
+import Toast from "react-native-toast-message";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -61,7 +62,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace("Welcome"); // Navigate to the main content after the splash screen
+      router.replace("/Welcome"); // Navigate to the main content after the splash screen
     }
   }, [loaded]);
 
@@ -168,6 +169,7 @@ function RootLayoutNav() {
           <Stack.Screen name="BloomzonShip" options={{ headerShown: false }} />
         </Stack>
       </ThemeProvider>
+      <Toast />
     </ProductsContext.Provider>
   );
 }

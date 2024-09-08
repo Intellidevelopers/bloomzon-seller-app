@@ -13,6 +13,7 @@ import {
 import { useRouter } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import axios from "axios";
+import Toast from "react-native-toast-message";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -29,24 +30,37 @@ const LoginScreen: React.FC = () => {
   };
 
   async function signInWithEmail() {
-    try {
-      setLoading(true);
+    if (email && password) {
+      try {
+        setLoading(true);
 
-      const res = await axios.post(
-        "https://bloomzon-backend-1-q2ud.onrender.com/api/auth/login",
-        {
-          email,
-          password,
+        const res = await axios.post(
+          "https://bloomzon-backend-1-q2ud.onrender.com/api/auth/login",
+          {
+            email,
+            password,
+          }
+        );
+
+        if (res.data.message == "Login successful") {
+          setLoading(false);
+          Toast.show({
+            type: "success",
+            text1: "Welcome",
+            text2: "Login Successful",
+          });
+          router.push("/(tabs)"); // Replace with your home screen route
         }
-      );
-
-      if (res.data.message == "Login successful") {
+      } catch (err: any) {
         setLoading(false);
-        router.push("/(tabs)"); // Replace with your home screen route
+        Alert.alert(err.message);
       }
-    } catch (err: any) {
-      setLoading(false);
-      Alert.alert(err.message);
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "All Fields Required",
+        text2: "Please input all fields before signing up",
+      });
     }
   }
 
@@ -120,7 +134,7 @@ const LoginScreen: React.FC = () => {
       </View>
       <TouchableOpacity
         style={styles.registerButton}
-        onPress={() => router.push("Register")}
+        onPress={() => router.push("/Register")}
       >
         <Text style={styles.registerButtonText}>Register</Text>
       </TouchableOpacity>
