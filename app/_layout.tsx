@@ -7,8 +7,8 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import axios from "axios";
-import { ProductsContext } from "@/constants/ProductsData";
 import Toast from "react-native-toast-message";
+import { ProductsContext } from "@/constants/ProductsData";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -24,22 +24,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { setUserData } = useContext(ProductsContext);
-
-  useEffect(() => {
-    const profile = async () => {
-      try {
-        const res = await axios.get(
-          "https://bloomzon-backend-1-q2ud.onrender.com/api/profile"
-        );
-        setUserData(res.data);
-        router.push("/(tabs)");
-      } catch (err) {}
-    };
-
-    profile();
-  }, []);
-
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Bold: require("../assets/fonts/Poppins-Bold.ttf"),
@@ -78,6 +62,20 @@ function RootLayoutNav() {
   const [images, setImages] = useState<any>("");
   const [userData, setUserData] = useState("");
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    const profile = async () => {
+      try {
+        const res = await axios.get(
+          "https://bloomzon-backend-1-q2ud.onrender.com/api/profile"
+        );
+        router.push("/(tabs)");
+        setUserData(res.data);
+      } catch (err) {}
+    };
+
+    profile();
+  }, []);
 
   return (
     <ProductsContext.Provider

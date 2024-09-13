@@ -96,7 +96,7 @@ const Gallery = () => {
   };
 
   // HANDLE SUBMISSION
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setImages(image.filter((item) => item !== undefined));
     router.push("/ProductDescription");
   };

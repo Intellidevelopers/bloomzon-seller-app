@@ -1,7 +1,7 @@
 import CustomBarChart from '@/components/CustomBarChart';
 import { Ionicons, MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 import { router, useNavigation } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ScrollCards from '@/components/ScrollCards';
 import {
   Text,
@@ -22,10 +22,14 @@ import {
 } from 'react-native';
 import ChartHeader from '@/components/ChartHeader';
 import QuickActions from '@/components/QuickAction';
+import { ProductsContext } from '@/constants/ProductsData';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const index = () => {
+  const { userData } = useContext(ProductsContext);
+
+  
   const navigation = useNavigation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState('6 months');
@@ -125,7 +129,7 @@ const index = () => {
       <View style={styles.userInfo}>
         <TouchableOpacity style={styles.profile} onPress={() => router.push('/(tabs)/account')}>
           <Image source={require('../../assets/flags/usa.png')} style={styles.userImage} />
-          <Text style={styles.userName}>Imobighe</Text>
+          <Text style={styles.userName}>{ userData.name}</Text>
           <AntDesign name="down" size={16} color="#000" />
         </TouchableOpacity>
 
@@ -141,7 +145,7 @@ const index = () => {
         <TouchableOpacity style={styles.drawerItem} onPress={refreshHome} onPressIn={closeDrawer}>
           <Text style={[styles.drawerItemText]}>Home</Text>
         </TouchableOpacity>
-        {['Inventory', 'Pricing', 'Orders', 'Payments', 'Communications', 'Help', 'Seller Support', 'Send us App Feedback', 'Terms & Conditions', 'Reset Password'].map((item, index) => (
+        {['Inventory', 'Pricing', 'Orders', 'Payments', 'Communications', 'Help', 'Seller Support', 'Send us App Feedback', 'Terms & Conditions', 'Reset Password'].map((item: any, index) => (
           <TouchableOpacity key={index} style={styles.drawerItem} onPress={() => router.push(`/${item.replace(/\s/g, '')}`)}>
             <Text style={styles.drawerItemText}>{item}</Text>
           </TouchableOpacity>

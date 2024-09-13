@@ -18,10 +18,13 @@ const GrowthOpportunity: React.FC = () => {
     { text: 'Refer a Friend', screen: '/Growth' },
   ];
 
-  const Item: React.FC<ItemProps> = ({ content }) => (
-    <TouchableOpacity style={styles.item} onPress={() => router.push(content.screen)}>
+  const Item: React.FC<ItemProps> = ({ content }: any) => (
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => router.push(content.screen)}
+    >
       <Text style={styles.growthText}>{content.text}</Text>
-      <AntDesign name='right' style={styles.arrowIcon} />
+      <AntDesign name="right" style={styles.arrowIcon} />
     </TouchableOpacity>
   );
 

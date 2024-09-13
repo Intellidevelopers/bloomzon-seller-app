@@ -15,7 +15,7 @@ const QuickActions = () => {
     { label: 'Manage Returns', icon: <FontAwesome6 name='reply-all' size={30} color='#00D1A3' />, route: '/Returns' },
     { label: 'Manage Inventory', icon: <FontAwesome6 name='store' size={30} color='#00D1A3' />, route: '/Inventory' },
     { label: 'Payments', icon: <FontAwesome6 name='credit-card' size={30} color='#00D1A3' />, route: '/(tabs)/wallet' },
-    { label: 'Communications', icon: <Entypo name='chat' size={30} color='#00D1A3' />, notificationCount: 2, route: 'Communications' },
+    { label: 'Communications', icon: <Entypo name='chat' size={30} color='#00D1A3' />, notificationCount: 2, route: '/Communications' },
     { label: 'Business Analysis', icon: <FontAwesome6 name='chart-simple' size={30} color='#00D1A3' />, route: '/BusinessAnalysis' },
     { label: 'Advertisement', icon: <FontAwesome6 name='chart-simple' size={30} color='#00D1A3' />, route: '/Advertisement' },
     { label: 'Account Health', icon: <MaterialCommunityIcons name='sine-wave' size={30} color='#00D1A3' />, route: '/AccountHealth' },
@@ -23,7 +23,7 @@ const QuickActions = () => {
     { label: 'Customer Voice', icon: <MaterialCommunityIcons name='account-voice' size={30} color='#00D1A3' />, route: '/CustomerVoice' },
     { label: 'Subscribe & Save', icon: <FontAwesome5 name='sync-alt' size={30} color='#00D1A3' />, route: '/SubscribeSave' },
     { label: 'Feedback', icon: <MaterialCommunityIcons name='message-alert' size={30} color='#00D1A3' />, route: '/Feedback' },
-    { label: 'Growth Opportunity', icon: <FontAwesome6 name='chart-line' size={30} color='#00D1A3' />, route: 'GrowthOpportunity' },
+    { label: 'Growth Opportunity', icon: <FontAwesome6 name='chart-line' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
     { label: 'Bloomzon Live', description: 'Upload your live video', icon: <MaterialIcons name='live-tv' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
     { label: 'Bloomzon Reels', description: 'Add reels video', icon: <MaterialCommunityIcons name='movie' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
     { label: 'Bloomzon TV', description: 'Contact bloomzon to appear on realtime sales on our live Tv.', icon: <FontAwesome6 name='tv' size={30} color='#00D1A3' />, route: '/GrowthOpportunity' },
@@ -32,7 +32,7 @@ const QuickActions = () => {
 
   return (
     <View style={styles.container}>
-      {actions.map((action, index) => (
+      {actions.map((action: any, index) => (
         <TouchableOpacity
           key={index}
           style={styles.tabsContainer}
