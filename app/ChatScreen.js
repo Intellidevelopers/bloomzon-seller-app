@@ -32,6 +32,7 @@ const ChatScreen = () => {
   const { userData } = useContext(ProductsContext);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [image, setImage] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,8 +62,6 @@ const ChatScreen = () => {
   const { data, isLoading } = useMessageViewQuery(id, {
     pollingInterval: 3000,
   });
-
-  console.log(message);
 
   useEffect(() => {
     const chat = message.reverse();
@@ -97,7 +96,6 @@ const ChatScreen = () => {
   //   }
   // };
 
-  console.log(data);
   const saveMessages = async (newMessages) => {
     try {
       await AsyncStorage.setItem(
@@ -119,8 +117,6 @@ const ChatScreen = () => {
       type: "text",
     };
   };
-
-  //  setInterval(loadMessages, 3000)
 
   const handleSend = async () => {
     if (inputText.trim()) {
@@ -166,6 +162,28 @@ const ChatScreen = () => {
       //   flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
       // }, 1000); // 1 second delay for simulation
     }
+
+    if (image) {
+      try {
+        const formData = new FormData();
+
+        formData.append("images", image);
+
+        const res = await axios.post(
+          `https://bloomzon-backend-1-q2ud.onrender.com/api/send_message/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   const handleImagePick = async () => {
@@ -177,13 +195,16 @@ const ChatScreen = () => {
     });
 
     if (!result.canceled && result.assets) {
-      const uri = result.assets[0].uri;
+      const uri = result.assets[0];
+
       const newMessage = {
-        image: uri,
-        type: "image",
+        uri: uri.uri,
+        type: uri.mimeType,
+        name: uri.fileName,
+        fileName: uri.fileName,
       };
-      const updatedMessages = [newMessage, ...messages];
-      setMessages(updatedMessages);
+      const updatedMessages = newMessage;
+      setImage(updatedMessages);
       saveMessages(updatedMessages);
       flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }
@@ -258,7 +279,12 @@ const ChatScreen = () => {
             </Text>
           </View>
         ) : (
-          <Image source={{ uri: item.image }} style={styles.image} />
+          <Image
+            source={{
+              uri: `https://bloomzon-backend-1-q2ud.onrender.com/media/${item.image}`,
+            }}
+            style={styles.image}
+          />
         )}
       </View>
     </Pressable>

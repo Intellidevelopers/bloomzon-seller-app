@@ -13,7 +13,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Feather, FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
-import axios from "axios";
 import { ProductsContext } from "@/constants/ProductsData";
 import { useMymessagesQuery } from "@/redux/ApiSlice";
 
@@ -172,6 +171,7 @@ const messages = () => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
+      
       style={styles.messageContainer}
       onPress={() => {
         navigation.navigate("ChatScreen", {
@@ -314,8 +314,8 @@ const messages = () => {
             renderItem={({ item, index }) => (
               <View>
                 {(index === 0 ||
-                  filteredMessages[index - 1].date !== item.date) &&
-                  renderDateSeparator(item.date)}
+                  filteredMessages[index - 1].created_at !== item.created_at) &&
+                  renderDateSeparator(item.created_at)}
                 {renderItem({ item })}
               </View>
             )}
