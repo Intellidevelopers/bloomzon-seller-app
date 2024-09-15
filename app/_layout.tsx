@@ -9,6 +9,8 @@ import { useColorScheme } from "@/components/useColorScheme";
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import { ProductsContext } from "@/constants/ProductsData";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -78,96 +80,137 @@ function RootLayoutNav() {
   }, []);
 
   return (
-    <ProductsContext.Provider
-      value={{
-        prodData,
-        setProdData,
-        setImages,
-        images,
-        userData,
-        setUserData,
-      }}
-    >
-      <ThemeProvider value={DefaultTheme}>
-        <Stack initialRouteName="Welcome">
-          <Stack.Screen name="Welcome" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="Home" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="StoreCountries"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="Register" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="ForgotPassword"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="OTP" options={{ headerShown: false }} />
-          <Stack.Screen name="ResetPassword" options={{ headerShown: false }} />
-          <Stack.Screen name="Success" options={{ headerShown: false }} />
-          <Stack.Screen name="AddProduct" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="VariationsScreen"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Variations" options={{ headerShown: false }} />
-          <Stack.Screen name="Offers" options={{ headerShown: false }} />
-          <Stack.Screen name="Gallery" options={{ headerShown: false }} />
-          <Stack.Screen name="Reorder" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="ProductDescription"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Keywords" options={{ headerShown: false }} />
-          <Stack.Screen name="UploadSuccess" options={{ headerShown: false }} />
-          <Stack.Screen name="Orders" options={{ headerShown: false }} />
-          <Stack.Screen name="Inventory" options={{ headerShown: false }} />
-          <Stack.Screen name="Filter" options={{ headerShown: false }} />
-          <Stack.Screen name="Returns" options={{ headerShown: false }} />
-          <Stack.Screen name="ReturnDetails" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="RefundInformation"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="RefundSummary" options={{ headerShown: false }} />
-          <Stack.Screen name="refundSuccess" options={{ headerShown: false }} />
-          <Stack.Screen name="ContactBuyer" options={{ headerShown: false }} />
-          <Stack.Screen name="Advertisement" options={{ headerShown: false }} />
-          <Stack.Screen name="AccountHealth" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="Communications"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="AllMessages" options={{ headerShown: false }} />
-          <Stack.Screen name="Update" options={{ headerShown: false }} />
-          <Stack.Screen name="ChatScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="Request" options={{ headerShown: false }} />
-          <Stack.Screen name="Summary" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="SuccessComponent"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="SettingScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="DealsScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="DealsDetails" options={{ headerShown: false }} />
-          <Stack.Screen name="CreateDeal" options={{ headerShown: false }} />
-          <Stack.Screen name="Coupon" options={{ headerShown: false }} />
-          <Stack.Screen name="CreateCoupon" options={{ headerShown: false }} />
-          <Stack.Screen name="Coupons" options={{ headerShown: false }} />
-          <Stack.Screen name="CouponDetails" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="GrowthOpportunity"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="RegisterAsBloomzon"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="BloomzonShip" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-      <Toast />
-    </ProductsContext.Provider>
+    <Provider store={store}>
+      <ProductsContext.Provider
+        value={{
+          prodData,
+          setProdData,
+          setImages,
+          images,
+          userData,
+          setUserData,
+        }}
+      >
+        <ThemeProvider value={DefaultTheme}>
+          <Stack initialRouteName="Welcome">
+            <Stack.Screen name="Welcome" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="Home" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="StoreCountries"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
+            <Stack.Screen name="Register" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="ForgotPassword"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="OTP" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="ResetPassword"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Success" options={{ headerShown: false }} />
+            <Stack.Screen name="AddProduct" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="VariationsScreen"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Variations" options={{ headerShown: false }} />
+            <Stack.Screen name="Offers" options={{ headerShown: false }} />
+            <Stack.Screen name="Gallery" options={{ headerShown: false }} />
+            <Stack.Screen name="Reorder" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="ProductDescription"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Keywords" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="UploadSuccess"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Orders" options={{ headerShown: false }} />
+            <Stack.Screen name="Inventory" options={{ headerShown: false }} />
+            <Stack.Screen name="Filter" options={{ headerShown: false }} />
+            <Stack.Screen name="Returns" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="ReturnDetails"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="RefundInformation"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="RefundSummary"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="refundSuccess"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ContactBuyer"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Advertisement"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AccountHealth"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Communications"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="AllMessages" options={{ headerShown: false }} />
+            <Stack.Screen name="Update" options={{ headerShown: false }} />
+            <Stack.Screen name="ChatScreen" options={{ headerShown: false }} />
+            <Stack.Screen name="Request" options={{ headerShown: false }} />
+            <Stack.Screen name="Summary" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="SuccessComponent"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SettingScreen"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="DealsScreen" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="DealsDetails"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="CreateDeal" options={{ headerShown: false }} />
+            <Stack.Screen name="Coupon" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="CreateCoupon"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Coupons" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="CouponDetails"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="GrowthOpportunity"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="RegisterAsBloomzon"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="BloomzonShip"
+              options={{ headerShown: false }}
+            />
+          </Stack>
+        </ThemeProvider>
+        <Toast />
+      </ProductsContext.Provider>
+    </Provider>
   );
 }

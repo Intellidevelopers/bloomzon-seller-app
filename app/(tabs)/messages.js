@@ -15,6 +15,7 @@ import { AntDesign, Feather, FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import axios from "axios";
 import { ProductsContext } from "@/constants/ProductsData";
+import { useMymessagesQuery } from "@/redux/ApiSlice";
 
 // Message data
 // const messageData = [
@@ -105,6 +106,10 @@ import { ProductsContext } from "@/constants/ProductsData";
 const messages = () => {
   const { userData } = useContext(ProductsContext);
 
+  const { data } = useMymessagesQuery(1, {
+    pollingInterval: 2000,
+  });
+
   const [messageData, setMessage] = useState([]);
 
   const navigation = useNavigation();
@@ -120,20 +125,24 @@ const messages = () => {
   };
 
   useEffect(() => {
-    const message = async () => {
-      try {
-        const res = await axios.get(
-          "https://bloomzon-backend-1-q2ud.onrender.com/api/my_messages"
-        );
-        // router.push("/(tabs)");
-        setMessage(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // const message = async () => {
+    //   try {
+    //     const res = await axios.get(
+    //       "https://bloomzon-backend-1-q2ud.onrender.com/api/my_messages"
+    //     );
+    //     // router.push("/(tabs)");
+    //     setMessage(res.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
-    message();
-  }, []);
+    // message();
+
+    if (data) {
+      setMessage(data);
+    }
+  }, [data]);
 
   const filterMessages = (messages, tab, query) => {
     let filteredMessages = messages;
@@ -186,11 +195,17 @@ const messages = () => {
         });
       }}
     >
-      <Image source={{ uri: item.imageUrl }} style={styles.profileImage} />
+      <Image source={{ uri: item.image }} style={styles.profileImage} />
       <View style={styles.messageContent}>
-        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.name}>
+          {userData.name == item.sender_name
+            ? item.receiver_name
+            : item.sender_name}
+        </Text>
         <Text style={styles.orderId}>Order ID: {item.orderId}</Text>
-        <Text style={styles.message}>{item.message}</Text>
+        <Text style={styles.message}>
+          {JSON.parse(item.messages)[JSON.parse(item.messages).length - 1].text}
+        </Text>
       </View>
     </TouchableOpacity>
   );

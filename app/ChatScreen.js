@@ -26,6 +26,7 @@ import { router } from "expo-router";
 import * as Clipboard from "expo-clipboard";
 import axios from "axios";
 import { ProductsContext } from "@/constants/ProductsData";
+import { useMessageViewQuery, useSendMutation } from "@/redux/ApiSlice";
 
 const ChatScreen = () => {
   const { userData } = useContext(ProductsContext);
@@ -55,28 +56,48 @@ const ChatScreen = () => {
     message,
   } = route.params;
 
+  // API
+  const [send] = useSendMutation();
+  const { data, isLoading } = useMessageViewQuery(id, {
+    pollingInterval: 3000,
+  });
+
+  console.log(message);
+
   useEffect(() => {
-    loadMessages();
+    const chat = message.reverse();
+
+    setMessages(chat);
   }, []);
 
-  const loadMessages = async () => {
-    try {
-      const res = await axios.get(
-        `https://bloomzon-backend-1-q2ud.onrender.com/api/message_view/${id}`
-      );
-
-      const message = JSON.parse(res.data.messages);
+  useEffect(() => {
+    if (data) {
+      const message = JSON.parse(data?.messages);
 
       message.reverse();
 
       setMessages(message);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
     }
-  };
+  }, [data]);
 
-  console.log(messages);
+  // const loadMessages = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `https://bloomzon-backend-1-q2ud.onrender.com/api/message_view/${id}`
+  //     );
+
+  //     const message = JSON.parse(res.data.messages);
+
+  //     message.reverse();
+
+  //     setMessages(message);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  console.log(data);
   const saveMessages = async (newMessages) => {
     try {
       await AsyncStorage.setItem(
@@ -105,17 +126,14 @@ const ChatScreen = () => {
     if (inputText.trim()) {
       const message = inputText.trim();
 
-      const data = {
+      const body = {
         type: "text",
         text: inputText.trim(),
       };
 
       try {
-        const res = await axios.post(
-          `https://bloomzon-backend-1-q2ud.onrender.com/api/send_message/${id}`,
-          data
-        );
-        loadMessages();
+        const res = await send({ body, id }).unwrap();
+        // loadMessages();
 
         setInputText("");
         // saveMessages(updatedMessages);
@@ -248,7 +266,7 @@ const ChatScreen = () => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    loadMessages();
+    // loadMessages();
     setRefreshing(false);
   };
 
