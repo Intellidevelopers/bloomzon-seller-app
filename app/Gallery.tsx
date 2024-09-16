@@ -63,8 +63,9 @@ const Gallery = () => {
       const newImage = [...image];
       newImage[index] = {
         uri: result.assets[0].uri,
-        type: result.assets[0].type,
+        type: result.assets[0].mimeType,
         name: result.assets[0].fileName,
+        filename: result.assets[0].fileName,
       };
 
       const newIsVideo = [...isVideo];

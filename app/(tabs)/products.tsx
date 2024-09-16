@@ -47,7 +47,7 @@ const Products: React.FC = () => {
     const product = async () => {
       try {
         const res = await axios.get(
-          "https://bloomzon-backend-1-q2ud.onrender.com/api/products"
+          "https://bloomzon-backend-1-q2ud.onrender.com/api/myproducts"
         );
 
         setOrders(res.data);
@@ -96,10 +96,23 @@ const Products: React.FC = () => {
   };
   const renderOrderItem = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Image
-        source={require("../../assets/products/img12.jpg")}
-        style={styles.productImage}
-      />
+      {item.images ? (
+        <Image
+          source={{
+            uri: `https://bloomzon-backend-1-q2ud.onrender.com/media/${
+              JSON.parse(item?.images)[0]
+            }`,
+          }}
+          style={styles.productImage}
+        />
+      ) : (
+        <Image
+          source={{
+            uri: `https://bloomzon-backend-1-q2ud.onrender.com/media/`,
+          }}
+          style={styles.productImage}
+        />
+      )}
       <View style={styles.orderTextContainer}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.orderTitle}>{item?.prod_name}</Text>

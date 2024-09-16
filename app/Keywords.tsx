@@ -38,8 +38,15 @@ const Keywords = () => {
     setKeywords(keywords.filter((k) => k !== keyword));
   };
 
-  console.log(Object.assign({}, images));
   const handleSubmit = async () => {
+    const formData = new FormData();
+
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+    }
+
     try {
       setLoading(true);
       const res = await axios.post(
@@ -55,9 +62,21 @@ const Keywords = () => {
         }
       );
 
-      setLoading(false);
-      if (res.data.message == "Product Added Successfully") {
-        router.push("/UploadSuccess");
+      if (res.data) {
+        const image = await axios.post(
+          `https://bloomzon-backend-1-q2ud.onrender.com/api/product_image/${res.data.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        setLoading(false);
+        if (image.data.message == "Product Added Successfully") {
+          router.push("/UploadSuccess");
+        }
       }
     } catch (err: any) {
       setLoading(false);

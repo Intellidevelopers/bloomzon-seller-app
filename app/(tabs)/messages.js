@@ -171,7 +171,6 @@ const messages = () => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      
       style={styles.messageContainer}
       onPress={() => {
         navigation.navigate("ChatScreen", {
@@ -206,6 +205,17 @@ const messages = () => {
         <Text style={styles.message}>
           {JSON.parse(item.messages)[JSON.parse(item.messages).length - 1].text}
         </Text>
+        {JSON.parse(item.messages)[JSON.parse(item.messages).length - 1]
+          .text ? (
+          <Text style={styles.message}>
+            {
+              JSON.parse(item.messages)[JSON.parse(item.messages).length - 1]
+                .text
+            }
+          </Text>
+        ) : (
+          <Text style={styles.message}>Image</Text>
+        )}
       </View>
     </TouchableOpacity>
   );
