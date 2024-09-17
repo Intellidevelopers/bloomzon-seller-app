@@ -3,10 +3,16 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from
 import { useRouter } from 'expo-router';
 import { AntDesign } from '@expo/vector-icons';
 import CommunicationHeader from '@/components/CommunicationHeader';
+import { useMymessagesQuery } from '@/redux/ApiSlice';
 
 const { width } = Dimensions.get('window');
 
 const Communications = () => {
+  const { data } = useMymessagesQuery(1, {
+    pollingInterval: 2000,
+  });
+
+
   const router = useRouter();
 
   return (
@@ -30,7 +36,7 @@ const Communications = () => {
           <View style={styles.row}>
             <Text style={styles.itemText}>Received Messages</Text>
             <View style={styles.notificationBadge}>
-            <Text style={styles.notificationText}>5</Text>
+                  <Text style={styles.notificationText}>{ data.length}</Text>
             <AntDesign name="right" size={12} color="#fff" style={styles.badgeArrow} />
           </View>
           </View>

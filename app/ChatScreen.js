@@ -127,16 +127,18 @@ const ChatScreen = () => {
         text: inputText.trim(),
       };
 
+      // console.log(id)
+
       try {
         const res = await send({ body, id }).unwrap();
         // loadMessages();
-
+        console.log(res.data, "MESAAS");
         setInputText("");
         // saveMessages(updatedMessages);
         Keyboard.dismiss();
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
       } catch (err) {
-        console.log(err);
+        console.log(err.message, "MMBVCV");
       }
 
       // const newMessage = {
@@ -178,7 +180,7 @@ const ChatScreen = () => {
             },
           }
         );
-
+        setImage("");
         console.log(res.data);
       } catch (err) {
         console.log(err);

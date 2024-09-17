@@ -124,20 +124,6 @@ const messages = () => {
   };
 
   useEffect(() => {
-    // const message = async () => {
-    //   try {
-    //     const res = await axios.get(
-    //       "https://bloomzon-backend-1-q2ud.onrender.com/api/my_messages"
-    //     );
-    //     // router.push("/(tabs)");
-    //     setMessage(res.data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // message();
-
     if (data) {
       setMessage(data);
     }
@@ -202,9 +188,9 @@ const messages = () => {
             : item.sender_name}
         </Text>
         <Text style={styles.orderId}>Order ID: {item.orderId}</Text>
-        <Text style={styles.message}>
+        {/* <Text style={styles.message}>
           {JSON.parse(item.messages)[JSON.parse(item.messages).length - 1].text}
-        </Text>
+        </Text> */}
         {JSON.parse(item.messages)[JSON.parse(item.messages).length - 1]
           .text ? (
           <Text style={styles.message}>
