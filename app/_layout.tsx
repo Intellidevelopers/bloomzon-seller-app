@@ -48,7 +48,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace("/Welcome"); // Navigate to the main content after the splash screen
+      router.replace("/(tabs)"); // Navigate to the main content after the splash screen
     }
   }, [loaded]);
 

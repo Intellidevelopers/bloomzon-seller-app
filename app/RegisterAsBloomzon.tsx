@@ -292,7 +292,7 @@ const RegisterAsBloomzon = () => {
         </ScrollView>
             </View>
           )}
-          
+           
           {activeTab === 2 && (
             <View style={{marginBottom: 60}}>
              <ScrollView style={styles.container}>
